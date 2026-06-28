@@ -1,0 +1,13 @@
+How kube proxy actually routes traffic.
+
+Here is a surprising truth. The service's cluster eye-pee is a fiction. There is no process anywhere listening on that address. So what makes the packet actually arrive at a pod.
+
+Kube proxy does. It runs as a daemon set on every node and watches the ay-pee-eye server for services and endpoints. When it learns about a new service, it programs the node's kernel networking so that packets sent to the service eye-pee get rewritten to a real pod eye-pee. Three modes have existed over the years, and you will meet two of them in the wild.
+
+The first is eye-pee-tables mode, the long time default. Kube proxy writes eye-pee-tables rules that rewrite the destination of packets headed for the cluster eye-pee, sending them to one of the endpoints chosen at random. It is simple and lives entirely in the kernel, with no extra process in the data path. The downside is that the number of rules grows with services times endpoints, which makes updates slower in clusters with tens of thousands of services.
+
+The second is eye-pee-vee-ess mode. Kube proxy programs the kernel's eye-pee virtual server module instead. Same idea, but with hash based lookup rather than walking a linear list, plus richer load balancing algorithms like round robin and least connections. It is faster at large scale.
+
+The third and newest is n-f-tables mode, built on the modern packet filter framework on recent linux kernels. It is the direction of travel for new clusters.
+
+For everyday work, kube proxy is invisible. You write a service, and traffic flows. The mode only matters when you are debugging the rules on a node, or when a service mesh injects its own proxies that take over routing.

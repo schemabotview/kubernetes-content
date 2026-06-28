@@ -1,0 +1,9 @@
+Resizing claims.
+
+You requested ten gibibytes, it is full, and you want twenty. If your storage class allows volume expansion and your driver supports it, the process is simple. You patch the claim, or edit it, to request the larger size.
+
+The controller then resizes the underlying disk, and the kube-let expands the filesystem inside the pod. For most modern filesystems this happens online, with no restart needed.
+
+There are a few constraints to keep in mind. You can only grow, never shrink. A smaller request is rejected by the ay-pee-eye server. Not every driver supports expansion. The simple local path driver on kind does not, while cloud drivers usually do. And while the filesystem side of the expansion is completing, the claim carries a resize pending condition, which you can see when you describe the claim.
+
+If the storage class has volume expansion turned off, the ay-pee-eye server rejects the patch outright. The fix in that case is heavier. You edit the storage class to allow expansion, or use a different class, and recreate the claim, which means migrating the data rather than running a one liner. So if you think you will ever need to grow a volume, turn on allow volume expansion in the storage class from the start. It costs nothing up front and saves a painful migration later.

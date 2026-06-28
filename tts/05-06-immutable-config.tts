@@ -1,0 +1,11 @@
+Immutable config maps and secrets.
+
+By default the kube-let watches every config map that a pod mounts, so it can notice changes and refresh the files. But think about the scale. On a large cluster, thousands of config maps, times thousands of pods, times thousands of nodes, means a great many watches running all the time.
+
+Setting the immutable flag to true on a config map tells the kube-let, this never changes, do not bother watching it. That removes the watch overhead. The trade off is that once you flip the bit, the config map can no longer be edited. It can only be deleted and recreated.
+
+Because of that, you version the config map in its name, since you cannot edit it in place. So instead of patching a config map, you create config map version three, deploy it, and later delete it when that release goes away. The same immutable field exists on secrets.
+
+The typical pattern is to ship a versioned config map alongside a versioned deployment, then delete the pair together when you tear that version down. The config is born, deployed, and dies with one release, and you never patch it.
+
+Tools like customize and helm lean into this. They can append a hash of the data to the name automatically, so every change effectively creates a brand new immutable object, and your deployment references the new name. That gives you both the performance benefit of immutability and an automatic, content driven version on every change.

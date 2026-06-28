@@ -1,0 +1,11 @@
+Endpoints and endpoint slices, what the service actually points at.
+
+The service object holds the selector. But the resolved list of pod eye-pees lives in a separate object.
+
+The original kind is called endpoints. There is one per service, with the same name, and it lists every ready pod's eye-pee and port. The modern kind is the endpoint slice, the default in recent kubernetes. Each slice holds up to a hundred endpoints, and a large service gets several slices, which keeps overhead low at scale.
+
+Both are filled in automatically. You do not write them. The endpoints controller watches services and pods, and updates them whenever a matching pod becomes ready, stops being ready, is deleted, or the service's selector changes. So when you read the endpoints for a service, you are reading the live answer to, which pod eye-pees is this service pointing at right now.
+
+Here is the single most common services problem in the wild. If a service shows none for its endpoints, it means no pods match the selector, or no matching pods are ready. Almost always the cause is one of three things. The service selector and the pod labels disagree, usually a typo. Or the pods are not ready, because of a failing readiness probe or a slow image pull. Or the pods are in a different namespace from the service. When something cannot connect, describe the service, which shows the selector and the endpoint addresses side by side. That is your first stop.
+
+One more capability. You can write a service with no selector at all, and create the endpoints object yourself, pointing at eye-pees outside the cluster. That lets a stable in cluster name front an external database, which is a neat way to migrate workloads gradually.

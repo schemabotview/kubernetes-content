@@ -1,0 +1,11 @@
+Three ways to consume a config map.
+
+A config map on its own does nothing. A pod uses it in one, or more, of three ways.
+
+The first way is as individual environment variables. You pull one key out of one config map into one variable, using a config map key reference. This is the most precise and most explicit option. Use it when you want to rename a key, so the key in the config map becomes a differently named variable in the container, or when you only want a subset of the config map's keys.
+
+The second way is as a bulk environment import, using env from. This slurps every key value pair from the config map into environment variables, with each key becoming a variable name. You can add an optional prefix to namespace them. Use this when the config map's keys are already exactly your variable names.
+
+The third way is as files in a volume. You mount the config map as a directory, and each key becomes a file whose contents are the value. This is perfect for an app that reads a configuration file from a path like slash e-t-c slash app. You can optionally project only specific keys, rename them, or set the file mode.
+
+So the mental model is a simple grid. Environment variables, either one at a time or in bulk, for apps that read their config from the environment. And volume mounted files, for apps that read their config from disk. The same config map can feed any of these, and you pick the shape your application expects.

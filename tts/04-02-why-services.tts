@@ -1,0 +1,11 @@
+Why services exist.
+
+You finished the last notebook with a deployment running three n-ginx pods. Each pod got its own eye-pee. But pods come and pods go. Every restart, every rollout, every scale event mints brand new eye-pee addresses.
+
+Now suppose you want a web pod to call your ay-pee-eye pods. The web pod has a problem. It cannot hardcode the pod eye-pees, because they change every rollout. It cannot reasonably discover the ay-pee-eye pods by listing all pods and filtering by label, because that would mean writing a tiny custom controller inside every client. And it cannot use dee-en-ess to resolve a single pod, because there is no dee-en-ess for individual pods by default, and the pod name has a random suffix anyway.
+
+What every client really wants is a stable name and a stable address that always point at, whichever ay-pee-eye pods are alive right now. That is the service.
+
+A service is a small piece of glue between consumers and producers. The web pod simply calls the ay-pee-eye by name. Dee-en-ess resolves that name to a stable virtual eye-pee. Then kube proxy rewrites the packet to one of the real, healthy pod eye-pees. The web pod has no idea, and no need to know, which specific pod served the request.
+
+That is the whole point. The service decouples the caller from the constantly shifting set of pods behind it. The pods can be replaced, scaled, and rescheduled all day long, and the name in front of them never changes.

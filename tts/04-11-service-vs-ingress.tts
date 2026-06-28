@@ -1,0 +1,9 @@
+Service versus ingress, a glance ahead.
+
+A service exposes a workload on one or more layer four ports, speaking tee-see-pee, you-dee-pee, or ess-see-tee-pee. It works at the transport layer. Host names, paths, tee-el-ess, and h-t-t-p routing simply do not exist at the service layer.
+
+So when you want h-t-t-p routing, things like, send slash ay-pee-eye to one service and slash static to another, with tee-el-ess on the front and a single public address, you want an ingress, or its newer cousin, the gateway ay-pee-eye. An ingress is itself a kubernetes object. An ingress controller, such as n-ginx, traefik, or an istio gateway, reads that object and configures an h-t-t-p proxy in front of your services.
+
+Here is the rough layering. Inside the cluster, a cluster eye-pee service handles layer four routing by selector. From outside, a node port or load balancer service handles layer four at the edge. For layer seven h-t-t-p, an ingress plus its controller handles host and path routing and tee-el-ess termination. And a full service mesh adds mutual tee-el-ess, retries, traffic shifting, and observability on top.
+
+We cover ingress and network policy properly in a later notebook. For now, the one takeaway is this. The service is the foundational primitive. Everything higher up, ingress, the mesh, the gateway ay-pee-eye, uses services to find the pods, and then adds smarter routing on top. Master the service, and the rest is layers built on it.

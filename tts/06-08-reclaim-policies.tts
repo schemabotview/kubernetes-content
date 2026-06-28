@@ -1,0 +1,15 @@
+Reclaim policies, what happens when a claim is deleted.
+
+When you delete a persistent volume claim, the bound persistent volume's reclaim policy decides the fate of the underlying disk. There are three policies.
+
+Delete deletes the underlying disk, and the persistent volume object is removed too. The data is gone. This is the default for dynamically provisioned volumes.
+
+Retain keeps the disk and the persistent volume object. The volume moves into a released state, not an available one, which means an admin has to clean it up before another claim can bind to it. Use retain for hand curated, valuable storage.
+
+And recycle is deprecated. It used to wipe the volume and make it available again. Do not use it. Use dynamic provisioning instead.
+
+Where does the policy come from. For dynamically provisioned volumes, it is inherited from the storage class, typically delete. For statically provisioned volumes, you set it on the persistent volume object directly. You can also switch a volume's policy after the fact with kubectl patch.
+
+Here is a piece of advice worth taking. On the persistent volume that holds your production database, switch the policy to retain, even if the storage class says delete. That is defence in depth against an accidental claim deletion taking your data with it.
+
+One last distinction. When a volume is retained, it goes into the released state. It is no longer bound to a claim, but it still holds the leftover data and a reference back to the deleted claim. To make it usable again, an admin removes that claim reference. Until then, no new claim will bind to it.

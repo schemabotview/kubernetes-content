@@ -1,0 +1,11 @@
+The container storage interface, how kubernetes talks to storage.
+
+Kubernetes itself does not know how to create a disk on a cloud, or mount a network file share, or attach a distributed storage volume. That work is done by container storage interface drivers, plugins installed in the cluster that implement a standard gee-are-pee-see interface.
+
+A driver is two parts. A controller, running as a deployment, that talks to the storage backend's ay-pee-eye. It creates and deletes volumes, takes snapshots, and expands disks. And a node component, running as a daemon set on every node, that attaches volumes to the node and mounts them into the pod's filesystem.
+
+The big idea is this. Every storage backend speaks the same container storage interface, so kubernetes itself stays storage agnostic. Each backend, whether a cloud provider, a network file share, or a distributed storage system, ships its own driver, and kubernetes talks to all of them the same way.
+
+You will rarely write any storage interface code. What matters for the exam is the following. Drivers are typically installed with helm at cluster setup time, and you reference them by their provisioner name in a storage class. You can list the installed drivers, and you can see which drivers each node has registered. And snapshots, clones, and expansion are all driver features, where the driver decides which ones are supported.
+
+One bit of history. Older kubernetes shipped storage drivers built directly into the kube-let, called in tree drivers. Those have been deprecated. Every cloud provider now ships a separate container storage interface driver, installed as its own pods. To put it simply, storage in kubernetes is pluggable, and the interface is the contract every plugin obeys.

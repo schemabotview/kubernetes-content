@@ -1,0 +1,11 @@
+Session affinity and multi port services.
+
+First, session affinity. By default, every connection to a service is independently load balanced, so the same client might hit different pods on back to back requests. For protocols where that is wrong, like long lived sessions stored in a pod's local memory, or sticky shopping carts, you can set session affinity to client eye-pee.
+
+Client eye-pee mode hashes by the client's source address and pins that client to one pod for a timeout, which defaults to three hours. This is the only affinity mode kubernetes itself offers. For richer stickiness, like cookie based or token based, you need an ingress controller or a service mesh.
+
+One warning. When many clients sit behind a single shared address, like a corporate proxy or a mobile carrier's network, client eye-pee affinity stops being useful, because every client looks the same to the service. Use it for internal traffic where each caller has a distinct address.
+
+Second, multi port services. A single service can expose more than one port. Each entry in the ports list becomes its own routing rule. The rule to remember is, when you have more than one port, each port must have a name. So you might expose an http port, a gee-are-pee-see port, and a metrics port, each named, each mapping to its own target port on the pods.
+
+Dee-en-ess still gives you one set of address records, because it is still a single service eye-pee. The per port detail is carried in service records, and clients simply connect to whichever port number they need, exactly as before.

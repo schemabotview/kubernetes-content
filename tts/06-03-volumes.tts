@@ -1,0 +1,13 @@
+Volumes, the basics.
+
+A pod can declare a list of volumes in its spec. Each container can then mount any of those volumes at a path. The connection between the two is by name. The pod declares a volume with a name, and the container declares a volume mount that references that same name, with a mount path.
+
+Two things to internalize here.
+
+First, the volume is declared on the pod, but mounted into the container. That is precisely how multiple containers share a volume, the sidecar pattern from earlier. Both containers declare a volume mount referencing the same pod level volume name, and now they see the same files.
+
+Second, a volume type is just a single key under the volume entry. Empty dir, host path, config map, secret, or persistent volume claim. Each volume entry uses exactly one of these type keys. That is the whole grammar. Give the volume a name, then choose one type.
+
+The mount itself supports a few useful knobs. Read only, to mount the volume read only. Sub path, to mount just a sub path of the volume at the target, which is the same one that does not live update, as we saw with config maps. And mount propagation, for advanced cases like storage drivers sharing the host filesystem, which you rarely set by hand.
+
+The volume types fall into two big groups. Ephemeral volumes, which live and die with the pod. And persistent volumes, which outlive it. We will walk through the ephemeral ones first, then the persistent abstraction.

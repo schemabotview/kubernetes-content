@@ -1,0 +1,13 @@
+Why storage matters, the container filesystem is ephemeral.
+
+When a container exits and the kube-let restarts it, the container's filesystem is wiped. To be precise, the image's read only layers stay, because they are cached on the node, but the container's writable top layer is deleted when the container is removed.
+
+That is by design. Containers are meant to be cattle, not pets. But it means anything the application wrote to a data directory is gone the moment the container restarts. Database files, gone. Uploaded user files, gone. Caches, gone, which is sometimes fine and sometimes not. Even log files, if something was reading them off disk.
+
+So you need storage that outlives the container. Kubernetes offers two levels.
+
+The first is pod lifetime storage. A volume that lives as long as the pod does, shared between the containers in that pod, and deleted with the pod. Examples are an empty dir, and config maps and secrets mounted as volumes. This is good for scratch space, for communication between sidecars, and for mounted configuration.
+
+The second is cluster lifetime storage. A volume backed by something external to the cluster, like a cloud disk or a network file share, that survives pod deletion, node failure, and rescheduling. This is what the persistent volume and persistent volume claim abstraction gives you.
+
+So for each workload, the question to ask is simply, how long should this data live. And the answer to that question picks the volume type.

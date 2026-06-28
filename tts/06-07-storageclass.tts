@@ -1,0 +1,15 @@
+Storage class, dynamic provisioning.
+
+A storage class is the recipe for, how do you make a new disk. When a claim names a storage class, the cluster follows that recipe to provision a fresh volume on demand. Let us go through the fields that matter day to day.
+
+The provisioner names which storage driver to use. The cluster has these drivers installed, and you reference them by name. There is a cloud block storage driver for each major cloud, a network file share driver, and a simple local path driver on kind.
+
+The parameters are driver specific. A cloud block driver takes things like the disk type and the requested input output operations per second. A file share driver takes the server and the share path.
+
+The reclaim policy decides what happens to the disk when the claim is deleted, which we cover next. It is almost always delete for a dynamically provisioned class, and retain for hand curated ones.
+
+The volume binding mode is an important one. Immediate, the default, picks or creates a volume the moment the claim is created. Wait for first consumer holds off until a pod actually schedules, then provisions the disk in that pod's zone. You want wait for first consumer whenever storage is zonal, otherwise you risk creating a disk in one zone and then scheduling the pod in another, where it cannot attach.
+
+And allow volume expansion controls whether a claim using this class can be resized later.
+
+You can also mark one storage class as the default. Then any claim that does not name a class gets the default, which keeps everyday manifests short.

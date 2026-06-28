@@ -1,0 +1,11 @@
+Headless services, dee-en-ess to pod eye-pees, no virtual eye-pee.
+
+Sometimes you do not want a virtual eye-pee at all. You want clients to see the individual pod eye-pees, so they can connect to a specific replica, or to all of them. That is a headless service.
+
+You make one by setting cluster eye-pee to the special value none. The effects are these. No cluster eye-pee is allocated, and no kube proxy rules are written, because there is no virtual eye-pee to connect to. Instead, a dee-en-ess lookup of the service name returns multiple address records, one per ready pod. A standard, look up then pick one, client gets every pod's eye-pee directly. And endpoint slices still exist, so the endpoints controller is still tracking the ready pods.
+
+Two use cases dominate.
+
+The first is stateful sets. When a stateful set wants each pod individually addressable, pod zero, pod one, pod two, the canonical setup is a headless service alongside it. Core-d-en-ess then exposes per pod dee-en-ess, of the form pod name, dot, service name, dot namespace, and so on. That is how databases running in kubernetes find their peers. For example, cassandra zero and cassandra one each get a stable name their siblings can call. We come back to this in the storage notebook.
+
+The second is client side load balancing. Some clients, like gee-are-pee-see and kafka clients, want to manage their own connections to every backend, rather than have kube proxy round robin connections behind their back. They look up the headless service, learn every endpoint, and balance across them in their own pool. So a headless service trades the convenience of a single virtual eye-pee for direct, per pod visibility.

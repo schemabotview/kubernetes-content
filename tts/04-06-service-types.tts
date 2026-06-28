@@ -1,0 +1,13 @@
+Service types, cluster eye-pee, node port, load balancer, and external name.
+
+A service's type controls how reachable it is. There are four values.
+
+Cluster eye-pee is the default. The service gets a virtual eye-pee from the cluster's service range, and it is reachable only from inside the cluster. This is what every internal microservice should be.
+
+Node port makes the service reachable on every node's eye-pee, on a port from the node port range. Node port includes cluster eye-pee, so the virtual eye-pee still exists. From outside, you would hit any node's address on that port. Use it for development clusters and for bare metal clusters that have no load balancer. In a real cloud cluster you almost never expose a node port directly. A load balancer or an ingress sits in front.
+
+Load balancer exposes the service through a cloud provided external load balancer, and it implicitly creates a node port too. The cloud controller manager talks to the cloud's ay-pee-eye, provisions the load balancer, and writes its public address back into the service's status. One caveat. On kind and minikube there is no cloud provider, so a load balancer service stays pending forever, unless you plug in a tool that fakes one for local clusters.
+
+External name is a different beast. It does no proxying at all. It simply makes the service name a dee-en-ess alias, a c-name, pointing at an external host name. So a lookup of the service name returns, say, your managed database's host name, with no virtual eye-pee and no endpoints involved.
+
+The progression is the mental model to keep. Cluster eye-pee for inside, node port for a raw external port, load balancer for a real cloud front door, and external name for a pure dee-en-ess redirect.

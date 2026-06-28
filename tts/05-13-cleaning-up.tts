@@ -1,0 +1,7 @@
+Cleaning up.
+
+Let us tidy the cluster for the next notebook. Delete the demo pods you created, then delete the config maps and the secret, by name, with kubectl delete. Or, more bluntly, delete every pod, config map, and secret in the current namespace with the all flag.
+
+One thing to notice as you clean up. Config maps and secrets are independent objects, not owned by the pods that consume them. So deleting a pod does not delete the config map or secret it referenced, and deleting the config map does not delete the pods. They are wired together only by reference.
+
+That independence is the recurring theme of this chapter. Configuration lives as its own first class object in the cluster, separate from the workloads that use it. You version it, secure it, and clean it up on its own schedule, and any number of pods can point at the same config without ever owning it.

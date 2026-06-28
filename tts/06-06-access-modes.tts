@@ -1,0 +1,11 @@
+Access modes and volume modes.
+
+A claim says how the workload wants to use the volume, along two independent axes.
+
+The first axis is access modes. Read write once means one node can mount the volume read write. That is the default and by far the most common, and pods on that same node can share it. Read only many means many nodes can mount it read only, which is rare. Read write many means many nodes can mount it read write at the same time, but this requires a backend that supports it, like a network file share. Notably, cloud block storage does not support read write many. And read write once pod is the strongest, where only a single pod in the entire cluster can mount it.
+
+A claim requests one or more access modes, and the bound persistent volume must support at least one of them. Here is the practical consequence that catches people out. For cloud block storage you get read write once by default. That is why a deployment with one claim will not easily scale to two replicas. The second replica, scheduled on a different node, cannot mount the same read write once disk. Shared, multi node read write needs a file based backend, not a block disk.
+
+The second axis is volume modes. Filesystem, the default, formats and mounts the volume at the mount path, so the container sees files and directories. Block exposes the volume as a raw block device, so the container sees something like a raw disk device, which is used by databases that manage their own on disk format.
+
+About ninety nine percent of workloads want filesystem. Block mode is there for the rare app that wants raw devices.

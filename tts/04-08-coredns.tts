@@ -1,0 +1,11 @@
+Dee-en-ess in kubernetes, core-d-en-ess and the service name pattern.
+
+A cluster eye-pee is hard to remember. The piece that makes services actually usable is cluster dee-en-ess. Every kubernetes cluster ships a dee-en-ess server, almost always core-d-en-ess, running as a deployment in the kube system namespace, with its own service in front of it.
+
+When a pod starts, the kube-let writes the pod's resolver configuration so that its dee-en-ess points at the core-d-en-ess service. Every name lookup the pod makes goes to core-d-en-ess first.
+
+Core-d-en-ess exposes a name for every service, following one pattern. The service name, dot, the namespace, dot, ess-vee-see dot cluster dot local. So a service called ay-pee-eye in the default namespace resolves at ay-pee-eye dot default dot ess-vee-see dot cluster dot local.
+
+Because of the search domains configured in the resolver, there are handy shortcuts. From a pod in the same namespace, the service name alone is enough. Calling ay-pee-eye just works. But across namespaces, you must include the namespace, for example ay-pee-eye dot default. Those two rules cover almost everything you will do. Same namespace, bare name. Crossing namespaces, add the namespace.
+
+It is worth knowing what gets a record. Normal services get an address record pointing at the cluster eye-pee. Headless services get address records pointing at every ready pod eye-pee, which we cover next. Named ports get service records. And individual pods can opt into their own dee-en-ess names, but only when you ask for it. The takeaway is simple. Dee-en-ess is what turns the service from an unmemorable virtual eye-pee into a stable, human friendly name.

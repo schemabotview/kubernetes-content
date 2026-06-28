@@ -1,0 +1,7 @@
+Cleaning up.
+
+Let us tidy the cluster for the next notebook. Delete the deployment you created, and delete the services you made, by name, with kubectl delete. Or, in one stroke, delete every deployment and service in the current namespace with the all flag.
+
+One thing worth noting as you clean up. Deleting a service does not touch the pods behind it. A service only routes. It never owns the pods, the way a deployment owns its replica sets and pods. So the endpoints simply disappear, and the pods carry on running until you delete their deployment.
+
+That separation is actually the whole lesson of this chapter in miniature. Workloads and the things that expose them are independent. You can delete and recreate the service in front of a deployment without ever disturbing the running pods, and the moment the new service's selector matches, traffic flows again.

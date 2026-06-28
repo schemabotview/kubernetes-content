@@ -1,0 +1,13 @@
+The persistent storage abstraction, persistent volume, claim, and storage class.
+
+For storage that outlives the pod, kubernetes splits the problem in two, which is the key idea of this whole chapter.
+
+On one side, the storage admin provisions storage and exposes it as a persistent volume. That is a cluster scoped object representing a real piece of physical storage, say a twenty gigabyte cloud disk, a network file share, or a directory on a node.
+
+On the other side, the application author asks for storage by writing a persistent volume claim. That is a namespaced object that says, I want five gibibytes of read write once storage from the fast solid state class.
+
+A controller binds the two together. The pod references the claim by name. The claim is bound to a persistent volume. And the persistent volume is the actual disk.
+
+Why does this decoupling matter so much. The app says what it needs, the size, the access mode, the class. The persistent volume says what is available, its size, its access mode, its backend. And the binding controller matches them. The app does not know, and does not have to know, whether it is getting a cloud block disk, a network file share, or a distributed storage volume. It just asks for storage and gets it.
+
+There are two ways the persistent volume side comes into being. Static provisioning, where a cluster admin pre creates persistent volume objects ahead of time, and claims bind to whichever existing volume fits best. That suits hand curated storage. And dynamic provisioning, where a storage class creates a fresh disk on demand the moment a claim appears, which is what you will use most of the time, and which we cover next.

@@ -1,0 +1,11 @@
+Stateful sets and volume claim templates, per pod claims.
+
+You met the stateful set briefly before, pods with stable identity, pod zero, pod one, and so on. The storage part of that story is the volume claim template.
+
+Here is the problem it solves. A deployment shares its pod template across all replicas. If you put a persistent volume claim reference in a deployment's template, every replica mounts the same claim. And since that claim is usually read write once, mountable on only one node, you cannot scale past one replica without trouble.
+
+A stateful set fixes this. Instead of the spec holding one shared claim reference, you write a volume claim template. Then the controller does something clever. For each replica, from zero up to the count, it creates its own claim, named after the template, the stateful set, and the ordinal. So you get data cassandra zero, data cassandra one, data cassandra two. Each claim binds to its own persistent volume, and each pod mounts its own claim at the same path inside the container.
+
+And the crucial property. If a pod is restarted or rescheduled, its claim stays. Pod cassandra one always comes back to the very same disk, data cassandra one. The identity and the storage travel together.
+
+That is exactly what stateful systems need. A database replica is not interchangeable. It owns specific data, and it must be reunited with that data after any restart. The stateful set, paired with a headless service for stable dee-en-ess names and volume claim templates for stable storage, delivers precisely that.

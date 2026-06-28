@@ -1,0 +1,7 @@
+Cleaning up.
+
+Let us tidy the cluster for the next notebook. Delete the demo pods, the stateful set, its service, and the persistent volume claims you created, by name, with kubectl delete. Or, more broadly, delete every pod, claim, and stateful set in the current namespace with the all flag.
+
+Here is the detail worth noticing. The persistent volumes themselves go too, because the local path driver's reclaim policy is delete. So deleting the claims cleans up the disks behind them.
+
+That is the reclaim policy from earlier, doing its job in real life. With a delete policy, the lifecycle of the disk is tied to the lifecycle of the claim, so cleanup is automatic. With a retain policy, those same disks would survive, waiting for an admin, which is exactly what you would want for precious production data. The whole chapter comes down to that one choice. Decide how long your data should live, and let the access mode, the storage class, and the reclaim policy carry out that decision for you.

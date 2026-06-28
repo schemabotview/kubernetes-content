@@ -1,0 +1,13 @@
+The configuration problem.
+
+You finished an earlier notebook with a deployment running an image, and that image bakes in a default configuration. But now you want more. You want to run the same image in staging with a debug log level and in production with a warning log level. You want to point the web pod at the ay-pee-eye service, but keep the address configurable so you can swap backends later. And you want to mount the same tee-el-ess certificate into three different services without copying it into three different images.
+
+Let us rule out the options that do not work in production.
+
+Baking it into the image. That means a separate image per environment, so the staging image and the production image are now genuinely different builds with different test coverage. Promotion becomes, build a new image, instead of, redeploy the same image with new config. So the thing you tested is not the thing you ship.
+
+Passing it on the command line. That is where you came from with docker, but pods are launched by the kube-let from a template stored in et-see-dee, not by you on a command line. Putting one variable directly in a deployment is fine, but with twenty variables, every deployment becomes a wall of environment entries.
+
+Stashing it in a sidecar. Sometimes the right answer, but very heavy just to put a value in a variable.
+
+What you really want is a first class kubernetes object that holds configuration data, lives in the cluster like every other object, and gets referenced from pod templates. Two such objects exist. The config map, for ordinary configuration, and the secret, for sensitive data.

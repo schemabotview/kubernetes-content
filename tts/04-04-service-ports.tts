@@ -1,0 +1,13 @@
+Port, target port, and node port, the three numbers.
+
+A service manifest has up to three port numbers. New users blur them together, but the exam expects you to be precise, so let us pull them apart.
+
+The port is what the service listens on, for in cluster clients. It is required. Picture a client connecting to the service at this port.
+
+The target port is the port on the pod that traffic is forwarded to. If you leave it out, it defaults to the same value as the port. It can be a number, or, better, a named port from the pod spec. So a target port of http matches a container port that was named http. Named ports are the safer choice, because the container can change its actual port number and you only edit one file.
+
+The node port is only used when the service type is node port, or load balancer, which implies a node port. It opens this same port on every node in the cluster. The range defaults to thirty thousand and up, and if you leave it blank, kubernetes assigns a free one for you.
+
+So the flow for a normal in cluster call is, the client hits the service on the port, and the service forwards to the pod on the target port, where the container is listening. With a node port service, there is one extra rule. An external client hits any node on the node port, and from there it jumps into the same kube proxy machinery and reaches a pod.
+
+A common mistake is setting the target port to the host's port rather than the container's listening port. Always remember, the target port is about the container, not the node.
