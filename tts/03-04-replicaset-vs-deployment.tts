@@ -1,0 +1,15 @@
+Why you almost never write a replica set directly.
+
+Replica sets are great at keeping a number of pods alive. They are terrible at changing what those pods run. Try to update the image on a replica set and you will hit three problems.
+
+First, editing the image in the template of an existing replica set does not restart any pods. The new image only applies to pods created from now on. Existing pods keep running the old image.
+
+Second, to actually roll the change out, you would have to delete pods one by one and let the controller recreate them. With three pods that is annoying. With thirty, it is error prone.
+
+And third, there is no history. Once you have changed the template, the old one is gone. There is no way to go back to last week's version without finding the manifest somewhere.
+
+What you really want is a controller that owns multiple replica sets, one per version, and choreographs the transition from one to the next, with history and a one command rollback. That is the deployment.
+
+Here is the ownership chain. You write the deployment. The deployment controller creates a replica set for the current version. The replica set controller creates the pods. When you change the deployment's template, the deployment controller creates a brand new replica set and gradually scales it up while scaling the old one down. The old replica set sticks around, scaled to zero, so a rollback is just scaling it back up.
+
+So the rule is simple. You almost never write a replica set by hand. You write a deployment, and let it manage the replica sets for you.

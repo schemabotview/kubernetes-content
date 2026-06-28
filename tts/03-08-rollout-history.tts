@@ -1,0 +1,11 @@
+Rollout history and rollback.
+
+Each rollout creates a new replica set, and the deployment keeps a numbered history. You view it with kubectl rollout history, which lists each revision and its change cause. You can drill into the spec of a specific revision by asking for that revision number.
+
+Now the payoff. If a revision is misbehaving, one command takes you back. Kubectl rollout undo returns you to the immediately previous revision, or you can name a specific revision to return to.
+
+Here is the mental model for undo. It is just another rollout. It creates a new revision whose template equals the old one, then runs the same rolling update process to switch to it. So after an undo you might see revisions one, two, and three, where three has the same template as one. You never really go backward in time. You roll forward to a copy of the past.
+
+For risky rollouts you can also pause and resume. Pause the deployment, and any further template edits will not trigger a rollout. Batch up a few more changes. Then resume, and all the queued changes ship together as one rollout. That lets you make several edits without firing a separate rollout for each.
+
+One more useful habit. The change cause column comes from an annotation. Set it when you ship, with a short note like, bumped the image to patch a vulnerability. Anything that triggers a new revision after the annotation is set inherits that change cause, leaving breadcrumbs for future you when you are staring at the history weeks later.

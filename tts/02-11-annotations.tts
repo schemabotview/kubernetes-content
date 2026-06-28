@@ -1,0 +1,17 @@
+Annotations, non identifying metadata.
+
+Labels are for selection. Annotations are for everything else you want to attach to an object. They have the same key value shape and live under metadata annotations, but with no constraint on length or character set, and no use by selectors.
+
+So what do you put in them. A few common uses.
+
+Human readable notes, for whoever reads the manifest next week. An owner email, a description of what the object does.
+
+Build metadata, like the git commit, the see-eye run that produced it, or the image digest at deploy time.
+
+Tool configuration. This is a big one. Ingress controllers, service meshes, and operators all read annotations to switch features on or off without changing the object's schema. For example, an ingress controller might read a rewrite target annotation to change how it routes a request.
+
+And kubernetes' own bookkeeping. When you run kubectl apply, it stores the last applied configuration in an annotation. That is how it computes a three way merge the next time you apply.
+
+Here is the rule of thumb to remember. If you want to find this object later by some property, use a label. If you only want to describe the object, or carry data that some tool will read, use an annotation. Selection versus description. That single distinction tells you which one to reach for every time.
+
+You can add, overwrite, and remove annotations from the command line with kubectl annotate, the same way you manage labels.

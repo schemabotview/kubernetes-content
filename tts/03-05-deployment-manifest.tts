@@ -1,0 +1,15 @@
+Anatomy of a deployment manifest.
+
+A deployment looks almost identical to a replica set. The same replicas, the same selector, the same template. Plus a few fields that govern how the controller updates pods. Let us go through them.
+
+Replicas is the same target count you saw on the replica set. The deployment simply passes it through to the active replica set.
+
+The selector's match labels must match the template's labels, just like before. But here is a key difference. Once set, the selector is immutable on a deployment. You cannot change it after creation. That rule exists to avoid the orphaned pods problem.
+
+The template is the pod template, and this is the field you will change most often, usually to bump an image. Any change inside the template triggers a rollout.
+
+Then come the update controls. The strategy type is either rolling update, the default gradual replacement, or recreate, which kills all then starts all. We will cover both shortly.
+
+Inside the rolling update settings are two knobs. Max surge is how many extra pods the controller may create above the target during a rollout. Twenty five percent of four replicas means one extra pod. Max unavailable is how many of the desired pods may be unavailable at the same time during a rollout. Again, twenty five percent of four means one.
+
+A few more fields round it out. Revision history limit caps how many old replica sets are kept for rollback. Min ready seconds makes a new pod wait, after becoming ready, before it counts as available. And progress deadline seconds is how long a stuck rollout waits before it is marked failed. Together these fields turn a plain count of pods into a safe, reversible release process.

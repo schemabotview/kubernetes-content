@@ -1,0 +1,9 @@
+Cleaning up.
+
+Let us delete everything this notebook created, so the cluster is tidy for the next one.
+
+The targeted way is to delete the specific pods by name in one kubectl delete command, and to delete any namespace you created for the demo. Deleting a namespace is powerful, because it takes every object inside it along with it.
+
+If you would rather be blunt, you can delete every pod in the current namespace at once with the all flag. Just remember that it is namespaced, so it only clears the namespace you are pointed at, and it really does delete.
+
+The habit to build here is to clean up after each chapter. A tidy cluster makes the next notebook's output easy to read, and it keeps you from confusing leftover objects with the ones you are about to create.

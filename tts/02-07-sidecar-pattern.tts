@@ -1,0 +1,13 @@
+Multi container pods, the sidecar pattern.
+
+In the last notebook we said the pod abstraction earns its keep when you have helper containers. Now we put that to use.
+
+The sidecar pattern is a small companion container that adds a capability to the main container without changing the main container's image. Common examples are a log shipper that tails files the main container writes and forwards them to a central system, a service mesh proxy that intercepts the main container's network traffic, and a config reloader that watches a config map mount and signals the main container when it changes.
+
+What makes the sidecar pattern work is two things, the shared volume and the shared network.
+
+Picture an application container that writes timestamps to a log file, and a second container, the log shipper, that tails that same file. Different containers, but the same file, because the volume is mounted into both. In a real system the shipper would forward those lines to a central logging service.
+
+When a pod has more than one container, you read a specific one's output by passing the container flag to kubectl logs, naming the container you want. Without it, kubectl does not know which container you mean.
+
+And the shared network is easy to prove. If the main container listens on, say, port eighty eighty, the sidecar reaches it simply at localhost, port eighty eighty. No dee-en-ess, no eye-pee lookups, because the two containers share the same network namespace. To put it another way, inside a pod, containers are roommates. They share the address and the cupboards, and they talk to each other just by turning around.

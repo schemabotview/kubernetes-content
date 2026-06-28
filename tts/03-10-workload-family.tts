@@ -1,0 +1,11 @@
+The rest of the workload family.
+
+Deployments cover stateless services, which is the most common case. But kubernetes ships four other workload controllers, each for a specific shape of workload. We will meet them properly later, but here is the menu.
+
+First, the daemon set. The idea is one pod per node. The daemon set controller ensures exactly one copy of a pod runs on every node that matches a selector. Add a node, a pod appears on it. Remove a node, its pod is gone. Use it for node level agents, like log shippers, metrics agents, networking and storage plugins, and security agents. You already have daemon sets running in your cluster. Kube proxy and the networking plugin both run as daemon sets in the kube system namespace.
+
+Second, the stateful set. The idea is pods with identity and storage that survive restarts. A deployment treats pods as interchangeable. A stateful set treats them as ordinals, pod zero, pod one, pod two, each with a stable name, a stable network identity, and its own persistent volume that follows it across restarts. Use it for stateful systems where identity matters, like databases, distributed datastores, and consensus systems. Its network identity comes from a headless service, which we cover next notebook, and its storage from volume claim templates, covered in the storage notebook.
+
+Third, the job. The idea is run a pod to completion. A job creates one or more pods and watches them until they exit successfully. If a pod fails, the job retries, up to a backoff limit. Use it for batch work, like a one off database migration, a nightly report, or a data pipeline. A job's pod template defaults to restart policy on failure.
+
+And fourth, the cron job, which is simply a job on a schedule, firing a new job at each cron interval.

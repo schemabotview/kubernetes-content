@@ -1,0 +1,11 @@
+Namespaces, soft tenancy boundaries.
+
+A namespace is a way to scope object names. Two pods can both be called web if they live in different namespaces. The web in default and the web in staging are distinct objects. Most resource kinds are namespaced, but a handful are cluster scoped, including nodes, persistent volumes, storage classes, and cluster roles.
+
+So what does a namespace actually give you. Four things. A name uniqueness scope, where names only need to be unique within the namespace and kind pair. A target for are-back, so you can grant a user access to one namespace without handing them the whole cluster. A target for quotas and limits, since resource quota and limit range apply per namespace. And a dee-en-ess suffix, because services get a name of the form service dot namespace dot ess-vee-see dot cluster dot local.
+
+Now what a namespace does not give you, and this catches people out. It does not give you network isolation. By default, every pod can reach every other pod regardless of namespace. Network policy, which we cover later, is what isolates traffic. And it does not give you strong tenancy. Namespaces are soft boundaries, good for separating teams or environments inside one trusted organization, but not for hostile multi tenancy.
+
+A fresh cluster ships with four built in namespaces. Default, where your objects land if you do not specify one. Kube system, where kubernetes' own components live, like core-d-en-ess and the controllers. Kube public, which is readable by everyone and rarely used. And kube node lease, where each node renews a heartbeat object every few seconds.
+
+The namespace flag works on every command. To make a namespace stick as your default, you set it on your current context with kubectl config.

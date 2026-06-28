@@ -1,0 +1,9 @@
+Labels, turning a flat list into a queryable set.
+
+Once you have more than a handful of pods, the strategy of, list everything and look for it, stops scaling. Labels are how kubernetes solves this. They are key value pairs attached to objects under metadata labels, designed for identifying and selecting groups of related objects.
+
+So a single pod might carry app equals web, tier equals frontend, version equals v two, and environment equals prod. A few rules govern them. Keys are strings, with an optional dee-en-ess style prefix used for namespacing between tools. Values are strings up to sixty three characters, made of letters, numbers, dashes, underscores, and dots. An object can have any number of labels, so add as many as your selection needs require. And labels are case sensitive identifying metadata, meant for selection.
+
+The community settled on a recommended set of standard labels, all under the app dot kubernetes dot eye-oh prefix. There is name for the application name, instance for this particular deployment of it, version for the application version, component for the piece within the app such as ay-pee-eye or worker, part of for a higher level grouping, and managed by for the tool that created it, like helm or argo see-dee. You do not have to use them, but if you do, dashboards and tools automatically understand your structure.
+
+You can write labels directly in a manifest, or add and change them on the fly with kubectl label. The key insight here is that labels turn your cluster from a flat pile of objects into a database you can query. Everything downstream, services, controllers, and policies, works by selecting on these labels.

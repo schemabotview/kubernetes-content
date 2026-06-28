@@ -1,0 +1,13 @@
+Update strategies, rolling update versus recreate.
+
+A deployment's strategy type chooses between two algorithms.
+
+Rolling update is the default, and it is what we just walked through. The new replica set scales up while the old one scales down, governed by max surge and max unavailable. There is no downtime, as long as your app handles the shutdown signal cleanly and your readiness probe is honest.
+
+Recreate is the other option. The old replica set is scaled to zero first, then the new one is scaled up. That means there will be a window with zero pods running. You choose recreate when the new version cannot coexist with the old. For example, an incompatible database schema migration, or a volume that only one pod can mount at a time, or a host port that two pods cannot share even briefly. Recreate is the simpler algorithm, rolling update is the production default, and the exam expects you to know both names and the kind of situation that argues for recreate.
+
+It is also worth knowing exactly what triggers a rollout. A rollout fires whenever the template changes. Changing an image, an environment variable, a command, a volume mount, a resource setting, a probe, anything inside the template. Adding or removing a container or volume.
+
+And a rollout does not fire when you change the replica count, which is a scale, not a rollout, nor when you change deployment level fields outside the template, like the strategy or the history limit, nor when you change labels on the deployment itself rather than on the template.
+
+One handy trick. If you ever want to force a rollout without really changing the template, for instance to make pods pick up a new config map value, you change a harmless annotation on the template, and that counts as a template change.

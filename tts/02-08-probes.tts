@@ -1,0 +1,13 @@
+Probes, liveness, readiness, and startup.
+
+A container can be running but not actually working. It might be deadlocked, stuck in a long garbage collection pause, or waiting forever on a downstream service that will never come back. The container's process never exited, so the kube-let thinks all is well, but your users are seeing timeouts.
+
+Probes let the kube-let ask the container, are you actually okay. There are three kinds, each answering a different question.
+
+The liveness probe answers, should I restart you. If it fails repeatedly, the kube-let kills and restarts the container, subject to the restart policy. Use it for the case where the container has wedged itself and only a restart will help.
+
+The readiness probe answers, should I send you traffic. If it fails, the kube-let marks the container as not ready. The pod's ready condition flips to false, and any service in front of the pod stops sending it traffic. Crucially, the container is not restarted. Use it for, I am alive but I am still warming up, or I lost my database connection, or I am shedding load.
+
+The startup probe answers, are you finished booting yet. For containers that take a long time to start, it gives them a grace period. While it is still failing, the liveness and readiness probes are suspended. Once it succeeds a single time, it is done and the other two take over.
+
+Each probe can use one of three mechanisms. An h-t-t-p get, where a success code means pass. A tee-see-pee socket check, where simply opening the connection means pass. Or running a command inside the container, where exit code zero means pass. You tune them with fields like the initial delay, the period between checks, and the failure threshold.

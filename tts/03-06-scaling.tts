@@ -1,0 +1,11 @@
+Scaling, changing the desired count.
+
+Scaling a deployment up or down is a one field change, and the controller does all the rest. You can do it imperatively with kubectl scale, which is the fastest way on the exam, or declaratively by editing the replicas field in your manifest and reapplying.
+
+When you scale up, the deployment controller updates the active replica set's count. The replica set controller sees more desired than actual and creates the difference. Each new pod walks through pending, container creating, running, and finally ready.
+
+When you scale down, the replica set controller sees more actual than desired. It picks pods to delete, and it is thoughtful about which ones. It prefers not ready pods first, then pods on nodes that already hold more replicas of the set, then the youngest by creation time. The chosen pods receive the polite shutdown signal, get their grace period to exit, and are then forcibly killed.
+
+Notice that scaling does not create a new replica set. It is the same generation, the same template, just a different count. That is why scaling is not considered a rollout, and it will not show up in the rollout history.
+
+There is also a hands off option. Instead of setting the count yourself, you can delegate it to a horizontal pod autoscaler. That is an object that watches a metric, like see-pee-you usage, and updates the deployment's replica count on your behalf to keep that metric near a target. You create one with kubectl autoscale, giving a minimum, a maximum, and a target percentage. We will return to autoscaling properly when we cover resources later in the course.

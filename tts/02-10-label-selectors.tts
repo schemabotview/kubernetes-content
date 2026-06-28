@@ -1,0 +1,11 @@
+Label selectors.
+
+A selector is a small expression that filters objects by their labels. There are two flavours, equality based, the simple one, and set based, the powerful one.
+
+Equality based is the everyday syntax, with three operators. Equals, the same thing written as double equals, and not equals. So app equals web matches pods whose app label is web. Tier not equals frontend matches anything except frontend. And you can join terms with commas, which means and. Both must be true. Notice there is no or in equality based selectors. For or, you need set based.
+
+Set based is the richer language, with four operators. In, not in, exists, which is just the key with no value, and does not exist, written as an exclamation mark before the key. So environment in prod or staging matches either. Tier not in frontend or backend excludes both. The word release on its own matches any pod that has a release label at all. And an exclamation mark before release matches pods that do not have it. You can combine set based terms with commas for and, and you can even mix the two styles in one selector.
+
+When you use these on the command line, you pass the label selector flag to kubectl get.
+
+Here is why this matters so much. Selectors are everywhere in kubernetes. Interactive filtering with kubectl. Services, where the selector picks the pods the service routes to. Deployments, replica sets, daemon sets, and jobs, where the selector picks the pods they manage. Network policies, where the pod selector picks which pods the policy applies to. Anywhere you want to refer to a group of pods without naming each one, you reach for a selector.

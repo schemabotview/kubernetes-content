@@ -1,0 +1,7 @@
+Cleaning up.
+
+Let us delete everything this notebook created, so the cluster is tidy for the next one. Delete the deployment, and any standalone replica set you made, with kubectl delete. Or more broadly, delete every deployment and replica set in the current namespace with the all flag.
+
+There is one lovely detail to take away here. Deleting a deployment deletes its replica sets, which in turn deletes their pods. The owner references cascade by default. So a single delete of the deployment cleans the whole tree, from the deployment, down through the replica sets, down to the individual pods.
+
+That cascade is the same ownership chain we have been discussing all chapter, just running in reverse. You built it top down, and it tears down top down. Understanding that one relationship, owner and owned, explains both how workloads come to life and how they cleanly go away.

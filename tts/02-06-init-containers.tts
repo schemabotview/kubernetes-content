@@ -1,0 +1,17 @@
+Init containers.
+
+Sometimes a pod needs to do something before the main container starts. Fetch a config file, run a database migration, or wait for a dependency to come up. That is exactly what init containers are for.
+
+Init containers run one at a time, in order, to completion, before any main container starts. If an init container fails, the pod's restart policy kicks in. Always or on failure will keep retrying it, while never marks the whole pod failed.
+
+Picture a simple example. The pod is scheduled. An init container starts and writes a file into a shared volume. It exits cleanly. Then the main container, say n-ginx, starts, mounts that same volume, and serves the file the init container just wrote. The init container prepared the ground, then stepped aside.
+
+A few things to internalize about init containers.
+
+They use the same container spec as main containers. Same image fields, same environment, same volume mounts. Anything you can do in a main container, you can do in an init container.
+
+They are sequential. Order matters, because the init containers field is a list, processed top to bottom.
+
+They share the pod's volumes and network namespace. That is how they hand work off to the main containers. Write to a shared empty dir, write to a socket, whatever you need.
+
+And one gotcha for later. Their resource requests are not simply added to the main containers' requests. The pod's effective request is computed using the largest init container measured against the sum of the main containers, because init containers run before, not alongside, the main ones.

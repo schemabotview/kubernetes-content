@@ -1,0 +1,13 @@
+Why bare pods are not enough.
+
+In the last notebook we created pods directly. That works for learning, but it falls over in production for two reasons.
+
+First, bare pods do not survive node failure. A pod object lives in et-see-dee referencing a specific node. If that node dies, the kube-let there stops reporting in. The pod's phase eventually becomes unknown, and nothing moves it elsewhere. The pod is simply gone.
+
+Second, bare pods do not roll forward. Suppose you have deployed a web pod and you want to update its image to a new version. With bare pods you would have to delete the old pod and create a new one, and there is a window with zero pods running. For a long running service, that is an outage.
+
+What you really want is a higher level object that says, I want three copies of this pod template alive at all times, anywhere in the cluster, and when I change the template, replace the running pods gracefully. That object is the deployment.
+
+The missing word here is controller. A controller is a program, usually living inside the kube controller manager, that watches a particular kind of object and works to make reality match its spec. You have already met one without realizing it. The kube-let is a controller for pods on its node.
+
+There are many others. The replica set controller ensures the right number of matching pods exist. The deployment controller manages replica sets and creates new ones during rollouts. The daemon set controller ensures one pod per node. The stateful set controller manages pods with stable identities. The job controller runs a pod to completion. And the node controller marks nodes unreachable when they stop sending heartbeats. The pattern is always the same. Watch, compare, act.
