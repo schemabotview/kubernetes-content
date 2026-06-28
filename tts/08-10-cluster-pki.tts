@@ -1,0 +1,11 @@
+The cluster public key infrastructure, who has what certificate.
+
+A kubernetes cluster is held together by tee-el-ess. Almost every component talks to almost every other component over h-t-t-p-s, and identities are proven with x five oh nine client certificates.
+
+A kube-ay-dee-m cluster has two certificate authorities by default. The kubernetes certificate authority signs all the front end certificates, for the ay-pee-eye server, the kube-let clients, and so on. And the et-see-dee certificate authority signs et-see-dee's own server and peer certificates. There is also a third, the front proxy authority, used by the ay-pee-eye aggregation layer for extension ay-pee-eye servers, which has less day to day relevance.
+
+The certificates themselves live under slash e-t-c slash kubernetes slash p-k-i. The ones to know are these. The ay-pee-eye server's own serving certificate. The ay-pee-eye server to kube-let client certificate. The ay-pee-eye server to et-see-dee client certificate. Et-see-dee's server and peer certificates. And the front proxy client certificate for the aggregation layer. Each is signed by one of the two authorities and proves one component's identity to another.
+
+On top of that, each node's kube-let has its own client certificate. Modern clusters use kube-let certificate rotation, where the kube-let asks the ay-pee-eye server to renew its certificate automatically before it expires.
+
+For the exam, the practical skills are, know where these files live, know that they have expiry dates, and know that kube-ay-dee-m can check and renew them. The mental model to keep is simple. Two authorities, one for the front end and one for et-see-dee, and every component carries a certificate that says who it is.

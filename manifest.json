@@ -20,6 +20,12 @@
           "scene": "kubernetes",
           "spine": true,
           "role": "hook",
+          "highlight": [
+            "k8s-cluster"
+          ],
+          "focus": [
+            "k8s-cluster"
+          ],
           "audio": "audio/01-02-what-is-kubernetes.wav"
         },
         {
@@ -184,6 +190,13 @@
           "scene": "kubernetes",
           "spine": true,
           "role": "hook",
+          "highlight": [
+            "k8s-apiserver",
+            "k8s-etcd"
+          ],
+          "focus": [
+            "k8s-control-plane"
+          ],
           "audio": "audio/02-02-object-model.wav"
         },
         {
@@ -328,6 +341,12 @@
           "scene": "kubernetes",
           "spine": true,
           "role": "hook",
+          "highlight": [
+            "k8s-pods"
+          ],
+          "focus": [
+            "k8s-worker"
+          ],
           "audio": "audio/03-02-why-controllers.wav"
         },
         {
@@ -453,6 +472,13 @@
           "scene": "kubernetes",
           "spine": true,
           "role": "hook",
+          "highlight": [
+            "k8s-pods",
+            "k8s-service"
+          ],
+          "focus": [
+            "k8s-networking"
+          ],
           "audio": "audio/04-02-why-services.wav"
         },
         {
@@ -587,6 +613,13 @@
           "scene": "kubernetes",
           "spine": true,
           "role": "hook",
+          "highlight": [
+            "k8s-configmap",
+            "k8s-secret"
+          ],
+          "focus": [
+            "k8s-config"
+          ],
           "audio": "audio/05-02-config-problem.wav"
         },
         {
@@ -733,6 +766,12 @@
           "scene": "kubernetes",
           "spine": true,
           "role": "hook",
+          "highlight": [
+            "k8s-pods"
+          ],
+          "focus": [
+            "k8s-worker"
+          ],
           "audio": "audio/06-02-why-storage.wav"
         },
         {
@@ -869,6 +908,12 @@
           "scene": "kubernetes",
           "spine": true,
           "role": "hook",
+          "highlight": [
+            "k8s-scheduler"
+          ],
+          "focus": [
+            "k8s-scheduling"
+          ],
           "audio": "audio/07-02-scheduling-problem.wav"
         },
         {
@@ -1027,6 +1072,12 @@
           "scene": "kubernetes",
           "spine": true,
           "role": "hook",
+          "highlight": [
+            "k8s-control-plane"
+          ],
+          "focus": [
+            "k8s-control-plane"
+          ],
           "audio": "audio/08-02-control-plane-overview.wav"
         },
         {
@@ -1174,6 +1225,13 @@
           "scene": "kubernetes",
           "spine": true,
           "role": "hook",
+          "highlight": [
+            "k8s-networking",
+            "k8s-pods"
+          ],
+          "focus": [
+            "k8s-networking"
+          ],
           "audio": "audio/09-02-networking-model.wav"
         },
         {
@@ -1332,6 +1390,13 @@
           "scene": "kubernetes",
           "spine": true,
           "role": "hook",
+          "highlight": [
+            "k8s-sa",
+            "k8s-apiserver"
+          ],
+          "focus": [
+            "k8s-rbac"
+          ],
           "audio": "audio/10-02-identity.wav"
         },
         {

@@ -1,0 +1,11 @@
+The plug in interfaces, container runtime, network, and storage.
+
+Kubernetes is deliberately small at the core. Three big plug in points let it talk to whatever runtime, network, and storage you happen to have.
+
+The first is the container runtime interface. It is a gee-are-pee-see ay-pee-eye the kube-let speaks to a local runtime. It has two services, one for creating pods and containers and managing their lifecycle, and one for pulling and listing images. The kube-let does not know whether container-d or cri-oh is on the other end of the socket. It just calls the interface. There is one runtime implementation per node.
+
+The second is the container network interface. It is a small specification, not gee-are-pee-see, for setting up a container's network namespace. When the kube-let creates a pod's network namespace, it invokes the configured network plugin, which allocates a pod eye-pee from the node's pool, programs routing so the pod can reach other pods, services, and the internet, and hands the eye-pee back for the kube-let to record. Common plugins include ka-lee-ko, silly-um, and flannel. They differ in how they encapsulate traffic, how they implement network policy, and their performance, with the ee-bee-pee-eff based ones able to skip eye-pee-tables entirely. The simple cluster, kind, ships with its own plugin called kind net.
+
+The third is the container storage interface, which we covered in the storage notebook. It is how kubernetes talks to any storage backend through a standard driver.
+
+The pattern across all three is identical. Kubernetes defines a contract, and each vendor ships a plugin that obeys it. That is exactly why kubernetes runs the same way on a laptop, in a data centre, and across every cloud.

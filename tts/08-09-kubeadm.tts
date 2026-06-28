@@ -1,0 +1,9 @@
+Kube-ay-dee-m, installing a cluster from scratch.
+
+Kube-ay-dee-m is the canonical installer for kubernetes clusters. It does not provision machines, install the operating system, configure firewalls, or pick a network plugin. Those are your problem. What it does do is set up the control plane and bootstrap the join tokens, given that you already have a set of linux machines with a container runtime, the kube-let, kube-ay-dee-m, and kubectl binaries installed, a pod network range chosen, and network connectivity between the nodes.
+
+A typical install is two commands. Kube-ay-dee-m init on the first control plane node, then kube-ay-dee-m join on every other node.
+
+Let us walk through what init does, in order. First, pre flight checks. Kernel version, swap turned off, ports free, runtime ready. It fails loudly if anything is wrong. Second, it generates the cluster's public key infrastructure, creating a certificate authority and signing certificates for the ay-pee-eye server, et-see-dee, the kube-let client, and others. Third, it writes the static pod manifests for et-see-dee, the ay-pee-eye server, the controller manager, and the scheduler into the manifests directory. Fourth, it waits for the control plane to come up, since the kube-let is already running and reads those manifests. And finally, it prints a join command, containing a token and a certificate hash, for the other nodes to use.
+
+After init, two things remain. You install a network plugin, because until you do, pods cannot get eye-pees and the cluster's own dee-en-ess stays pending. And you run the printed join command on each worker. With that, a cluster you built by hand is alive, which is exactly the skill the exam wants you to have.

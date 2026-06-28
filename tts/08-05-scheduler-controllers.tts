@@ -1,0 +1,11 @@
+The kube scheduler and the kube controller manager.
+
+These are two control plane workhorses you have already met, so this is mostly a recap with the names pinned down.
+
+The kube scheduler watches pending pods, filters and scores the nodes, and binds each pod to the winning node. It is pluggable through scheduling profiles. It runs as a static pod on the control plane, and it talks only to the ay-pee-eye server, never to the nodes directly.
+
+The kube controller manager is a single binary that hosts roughly thirty distinct controllers, each running the same observe, compare, act loop you have seen all course long. Let us name the ones that matter most.
+
+The node controller watches node objects, marks a node not ready when it stops sending heartbeats, and manages the no execute taints that follow. The deployment controller creates and manages replica sets for rollouts. The replica set controller creates and deletes pods to match the desired count. The daemon set, stateful set, job, and cron job controllers each manage the pods for their kind. The endpoints controller maintains the list of ready pod eye-pees behind each service. The service account controller creates a default service account per namespace. And the namespace controller cascades deletes, so that when a namespace is terminating, everything inside it is removed.
+
+The key idea is that there is no single, magic kubernetes brain. There is a crowd of small, single minded controllers, each watching one kind of object and nudging it toward its desired state. The controller manager is simply the box that runs that crowd.

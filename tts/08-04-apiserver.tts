@@ -1,0 +1,13 @@
+The kube ay-pee-eye server, the front door.
+
+The ay-pee-eye server is the only thing that ever writes to et-see-dee, and it is also the thing every other component talks to. Killing it does not kill your running workloads. They keep running where they are. But it stops the cluster from making any new decisions, because nothing can read or change state without it.
+
+Every request flows through the same five stages. Whether it is a kubectl get, the scheduler watching for new pods, the kube-let patching a pod's status, or your pipeline applying a manifest, it goes through authentication, then authorization, then admission, then validation, then et-see-dee.
+
+Stage one, authentication, asks, who is this request from. The ay-pee-eye server tries each configured authenticator in turn. Client certificates, bearer tokens like service account json web tokens, openid connect, or a webhook. The first one that recognizes the credential wins, and the request is tagged with that identity. If none recognizes it, the request is rejected as unauthorized.
+
+Stage two, authorization, asks, can this user perform this action on this object. This is usually are-back, matching the verb, like get, list, create, or delete, against the user's bound roles.
+
+Stage three, admission, can both mutate and validate the object. Mutating admission can fill in defaults or inject sidecars. Validating admission can reject the object against a policy, which is where pod security admission lives.
+
+Stage four, validation, checks the object against its schema. And only then, stage five, the object is written to et-see-dee. So the ay-pee-eye server is not just a database front end. It is the cluster's gatekeeper, identity check, policy engine, and validator, all in one.

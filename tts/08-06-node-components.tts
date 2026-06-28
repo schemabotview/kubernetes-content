@@ -1,0 +1,9 @@
+Node components, the kube-let, kube proxy, and the container runtime.
+
+Every node, control plane or worker, runs three things in coordination.
+
+First, the kube-let, the agent on the node. Here is a detail worth pinning down. The kube-let does not run as a pod. It is a system service, started by the init system on the machine. Its job is to register the node with the ay-pee-eye server, watch for pods bound to its own node, and for each one, drive the container runtime to make it real, pulling images, setting up the network namespace, mounting volumes, and starting containers. It also runs the probes, restarts containers per the restart policy, reports status back, and monitors node pressure to evict when needed. Importantly, the kube-let does not schedule. It only runs what has already been bound to its node.
+
+Second, kube proxy, the data plane half of services. It watches services and endpoint slices and programs the node's kernel networking, using eye-pee-tables, eye-pee-vee-ess, or n-f-tables, so that service cluster eye-pees route to real pod eye-pees. It runs as a daemon set in the kube system namespace. In modern clusters it is optional, because some networking plugins replace it entirely with ee-bee-pee-eff.
+
+Third, the container runtime, which actually runs the containers. Kubernetes does not ship a runtime. It speaks the container runtime interface to whichever one is installed. The two production grade choices are container-d, the most common, and cri-oh. Both, in turn, use a low level runtime to create the actual container processes, the same machinery you met under docker.

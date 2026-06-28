@@ -1,0 +1,11 @@
+The control plane in one diagram.
+
+We sketched this back in the first notebook. Now let us name every piece. The control plane runs on one or more nodes, and it is made of a handful of programs that, together, decide what the cluster does.
+
+At the centre sit two things. Et-see-dee, the cluster's source of truth, a key value store holding every object. And the kube ay-pee-eye server, the front door, which is the only thing that ever reads from or writes to et-see-dee, and the only thing every other component and every client talks to.
+
+Around them are the brains. The kube scheduler, which watches for pending pods and binds each one to a node. The kube controller manager, a single binary hosting about thirty separate controllers, each running the observe, compare, act loop you have seen all course. And the cloud controller manager, which integrates with a cloud provider for things like load balancers and node lifecycle.
+
+Out on each node, including the control plane nodes themselves, run the worker side programs. The kube-let, the agent that actually starts containers. Kube proxy, which programs the service networking. And a container runtime, which runs the containers.
+
+The shape to hold in your head is this. Clients talk to the ay-pee-eye server. The ay-pee-eye server persists state in et-see-dee. The scheduler and controllers watch the ay-pee-eye server and drive the cluster toward the desired state. And the kube-let on each node makes the decisions real. Every arrow in that picture passes through the ay-pee-eye server. Nothing goes around it.

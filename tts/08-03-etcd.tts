@@ -1,0 +1,9 @@
+Et-see-dee, the cluster's source of truth.
+
+Et-see-dee is a distributed key value store. Every kubernetes object you have ever created, every pod, deployment, config map, secret, namespace, and node, is a row in et-see-dee. If et-see-dee goes away, the cluster's memory goes with it.
+
+A few properties matter. It is strongly consistent, built on the raft consensus algorithm, so reads always see the latest committed write. It is highly available when you run an odd number of members, typically three or five in production, tolerating the loss of a minority. It listens on two ports, one for clients and one for peer to peer traffic, and both require tee-el-ess in any serious cluster. And it authenticates its clients with certificates. Its primary client is the ay-pee-eye server, which presents an et-see-dee client certificate.
+
+In a kube-ay-dee-m cluster, et-see-dee usually runs as a static pod on the control plane nodes, defined by a manifest on disk, and the kube-let starts it before anything else. The alternative is external et-see-dee, running on dedicated machines outside the kube-let's control. That has more moving parts but better blast radius isolation, and the big managed offerings tend to use it.
+
+What is actually stored. Every object, serialized, under a key path that mirrors the object's kind, namespace, and name. You can poke at it directly with the et-see-dee command line tool, but in practice you never do. You talk to the ay-pee-eye server, and it talks to et-see-dee. The one time you reach for et-see-dee directly is backup and restore, which we cover shortly, and which the exam loves to test.

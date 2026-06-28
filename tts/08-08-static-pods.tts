@@ -1,0 +1,11 @@
+Static pods, how the control plane bootstraps itself.
+
+A static pod is a pod the kube-let runs directly from a manifest on disk, without involving the ay-pee-eye server at all.
+
+The kube-let watches a directory, by default slash e-t-c slash kubernetes slash manifests, for yaml files. Each file is a pod manifest. The kube-let reads the file, starts the pod, and then creates a mirror pod in the ay-pee-eye server so that kubectl get pods can see it. It keeps the pod alive, restarting it on crash, and watches the file for changes.
+
+Here is the key behaviour. You cannot delete a static pod with kubectl. Deleting the mirror pod just removes it from the ay-pee-eye server's view, and the kube-let recreates the mirror within seconds. To actually stop a static pod, you move or delete its manifest file on the node.
+
+Why does this exist. The control plane has a chicken and egg problem. How do you start the ay-pee-eye server when you need the ay-pee-eye server to start things. Static pods are the answer. On a kube-ay-dee-m control plane node, the manifests directory contains the manifests for et-see-dee, the ay-pee-eye server, the controller manager, and the scheduler. The kube-let starts on boot, reads those files, and brings up the control plane, et-see-dee first, then the ay-pee-eye server, then the rest. The control plane literally bootstraps itself from files on disk.
+
+Static pods are useful outside the control plane too, for any node level agent that must run even when the ay-pee-eye server is unreachable, because they do not depend on it to start.
