@@ -1,0 +1,17 @@
+Imperative versus declarative.
+
+Using kubectl run to launch a pod is an imperative command. You are saying, do this thing right now. It is fast for learning and for ad hoc tasks, and it is accepted on the exam under time pressure. But it is not how real systems are managed.
+
+The grown up way is declarative. You write a yaml file that describes the object you want, and then you ask kubernetes to make reality match it. That file names the ay-pee-eye version, the kind, some metadata like the name and labels, and a spec that lists the containers. You hand it to the cluster with kubectl apply and the dash f flag pointing at the file.
+
+Why does declarative win for anything that is not throwaway. Four reasons.
+
+It is version controllable. The yaml files live in git, so you can diff them, review them, and roll them back.
+
+It is idempotent. Apply the same file ten times in a row and you still get one pod. Kubectl run would error on the second attempt.
+
+It is composable. A directory of yaml files describes a whole environment, and you can bring it all up by applying the directory.
+
+And it is reusable. Tools like helm and customize template these files across multiple environments.
+
+The bridge between the two worlds, and a trick worth memorizing for the see-kay-ay exam, is to generate yaml from an imperative command. You run kubectl run as usual, but you add the client dry run flag and ask for output as yaml, then redirect that into a file. The client dry run flag means, do not actually send this to the cluster, just build the object. You get a working manifest in one shot, which you can edit and apply. Most exam candidates write their yaml this way. It is faster than typing it from scratch and much harder to get wrong.

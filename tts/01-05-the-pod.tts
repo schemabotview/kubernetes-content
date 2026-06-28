@@ -1,0 +1,17 @@
+The pod, kubernetes' smallest unit.
+
+Here is the first thing that surprises people coming from docker. Kubernetes' smallest deployable thing is not a container. It is a pod.
+
+A pod is one or more containers that share a network and a storage scope, are scheduled together onto the same node, and are treated as a single unit by kubernetes. For about ninety five percent of pods there is exactly one container inside, so most of the time pod and container feel interchangeable. But the abstraction matters because of the other five percent.
+
+Shared network. All containers in a pod share one eye-pee address and one port space. They can talk to each other over localhost. From the outside, the pod has a single eye-pee, and you cannot tell its containers apart from across the network.
+
+Shared storage scope. Volumes are declared on the pod and mounted into whichever containers need them. So a helper container can write to the same directory the main container reads from.
+
+Same node, same lifecycle. A pod is scheduled atomically onto one node. All of its containers start there, live there, and die there together. If the pod restarts, all of its containers restart.
+
+So why bother. The pod abstraction exists for helper containers. Picture a sidecar, a small companion container that adds a capability like log shipping or a service mesh proxy. Or an init container, a run once container that prepares the pod before the main container starts, for example fetching a config file or waiting for a database to be ready.
+
+If you only have one container, the pod is just a thin wrapper. If you have a main process plus one or two helpers that must live on the same machine and share a filesystem with it, then the pod is the right unit.
+
+In this notebook and the next, every pod we run will have exactly one container, to keep the noise down.

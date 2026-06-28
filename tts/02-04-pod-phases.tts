@@ -1,0 +1,11 @@
+Pod phases, conditions, and container states.
+
+A pod's status has three different views of what is happening. They overlap, but each answers a different question.
+
+The first view is the phase, the headline. It is a single word, and the values are mutually exclusive. Pending means the pod is accepted by the cluster but at least one container has not started yet, usually because of scheduling or an image pull. Running means it is on a node and at least one container is up. Succeeded means all containers exited cleanly and will not restart. Failed means all containers terminated and at least one failed. And unknown means the node hosting the pod has stopped reporting in.
+
+The second view is conditions, the deeper picture. A pod has several conditions, each either true or false, and they flip in order. Pod scheduled means the scheduler picked a node. Initialized means all init containers finished. Containers ready means every container's readiness check is passing. And ready means the pod as a whole is ready to receive traffic. So a pod stuck on a failing image pull will show pod scheduled true, but initialized false and ready false, and you read the reason from the message field.
+
+The third view is the per container statuses. Each container is in one of three states. Waiting, which means not running yet, with a reason like container creating, image pull back off, or crash loop back off. Running, which tells you since when. Or terminated, which gives you the exit code, the reason, and the start and finish times. There is also a restart count, which is your first clue that a container is unhappy.
+
+The key insight here is to read the right view for the right question. Phase for the headline, conditions for where it is stuck, and container statuses for exactly why.

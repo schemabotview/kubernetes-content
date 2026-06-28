@@ -1,0 +1,1619 @@
+{
+  "concept": "Kubernetes",
+  "design": "DESIGN.md",
+  "scenes": [
+    {
+      "id": "kubernetes",
+      "title": "Kubernetes — the full platform",
+      "status": "built"
+    }
+  ],
+  "presentations": [
+    {
+      "id": "01-getting-started",
+      "title": "Getting Started with Kubernetes",
+      "notebook": "notebooks/01-getting-started-with-kubernetes.ipynb",
+      "defaultScene": "kubernetes",
+      "sections": [
+        {
+          "heading": "What's covered",
+          "scene": "kubernetes",
+          "spine": true,
+          "role": "hook"
+        },
+        {
+          "heading": "What is Kubernetes?",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-cluster"
+          ],
+          "focus": [
+            "k8s-cluster"
+          ],
+          "audio": "audio/01-02-what-is-kubernetes.wav"
+        },
+        {
+          "heading": "The orchestration problem — what Docker alone doesn't solve",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-scheduler",
+            "k8s-controllers"
+          ],
+          "focus": [
+            "k8s-control-plane"
+          ],
+          "audio": "audio/01-03-orchestration-problem.wav"
+        },
+        {
+          "heading": "The cluster at 30,000 feet",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-control-plane",
+            "k8s-worker"
+          ],
+          "focus": [
+            "k8s-cluster"
+          ],
+          "audio": "audio/01-04-cluster-overview.wav"
+        },
+        {
+          "heading": "The pod — Kubernetes' smallest unit",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-pods"
+          ],
+          "focus": [
+            "k8s-worker"
+          ],
+          "audio": "audio/01-05-the-pod.wav"
+        },
+        {
+          "heading": "Why Kubernetes matters",
+          "scene": "kubernetes",
+          "spine": false,
+          "highlight": [
+            "k8s-cluster"
+          ],
+          "focus": [
+            "k8s-cluster"
+          ],
+          "audio": "audio/01-06-why-kubernetes-matters.wav"
+        },
+        {
+          "heading": "Getting a local cluster",
+          "scene": "kubernetes",
+          "spine": false,
+          "highlight": [
+            "k8s-worker"
+          ],
+          "focus": [
+            "k8s-cluster"
+          ],
+          "audio": "audio/01-07-local-cluster.wav"
+        },
+        {
+          "heading": "Your first pod — `kubectl run`",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-kubectl",
+            "k8s-apiserver",
+            "k8s-pods"
+          ],
+          "focus": [
+            "k8s-cluster"
+          ],
+          "audio": "audio/01-08-first-pod.wav"
+        },
+        {
+          "heading": "How `kubectl` actually works",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-kubectl",
+            "k8s-apiserver"
+          ],
+          "focus": [
+            "k8s-client",
+            "k8s-control-plane"
+          ],
+          "audio": "audio/01-09-how-kubectl-works.wav"
+        },
+        {
+          "heading": "Anatomy of a `kubectl` command",
+          "scene": "kubernetes",
+          "spine": false,
+          "highlight": [
+            "k8s-kubectl"
+          ],
+          "focus": [
+            "k8s-client"
+          ],
+          "audio": "audio/01-10-kubectl-anatomy.wav"
+        },
+        {
+          "heading": "The core pod lifecycle",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-kc-get",
+            "k8s-kc-describe",
+            "k8s-kc-logs",
+            "k8s-kc-exec"
+          ],
+          "focus": [
+            "k8s-client"
+          ],
+          "audio": "audio/01-11-pod-lifecycle.wav"
+        },
+        {
+          "heading": "Imperative vs declarative",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-kc-apply",
+            "k8s-apiserver"
+          ],
+          "focus": [
+            "k8s-client",
+            "k8s-control-plane"
+          ],
+          "audio": "audio/01-12-imperative-vs-declarative.wav"
+        },
+        {
+          "heading": "Getting help — `--help`, `explain`, and the docs",
+          "scene": "kubernetes",
+          "spine": false,
+          "highlight": [
+            "k8s-kubectl"
+          ],
+          "focus": [
+            "k8s-client"
+          ],
+          "audio": "audio/01-13-getting-help.wav"
+        },
+        {
+          "heading": "Cleaning up",
+          "scene": "kubernetes",
+          "spine": false,
+          "audio": "audio/01-14-cleaning-up.wav"
+        }
+      ]
+    },
+    {
+      "id": "02-pods-object-model",
+      "title": "Pods, Labels & the Object Model",
+      "notebook": "notebooks/02-pods-labels-and-the-object-model.ipynb",
+      "defaultScene": "kubernetes",
+      "sections": [
+        {
+          "heading": "What's covered",
+          "scene": "kubernetes",
+          "spine": true,
+          "role": "hook"
+        },
+        {
+          "heading": "The Kubernetes object model",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-apiserver",
+            "k8s-etcd"
+          ],
+          "focus": [
+            "k8s-control-plane"
+          ],
+          "audio": "audio/02-02-object-model.wav"
+        },
+        {
+          "heading": "Anatomy of a Pod manifest",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-pod-kind",
+            "k8s-pod-containers"
+          ],
+          "focus": [
+            "k8s-pod-kind"
+          ],
+          "audio": "audio/02-03-pod-manifest.wav"
+        },
+        {
+          "heading": "Pod phases, conditions & container states",
+          "scene": "kubernetes",
+          "spine": false,
+          "highlight": [
+            "k8s-pods"
+          ],
+          "focus": [
+            "k8s-worker"
+          ],
+          "audio": "audio/02-04-pod-phases.wav"
+        },
+        {
+          "heading": "Restart policy",
+          "scene": "kubernetes",
+          "spine": false,
+          "highlight": [
+            "k8s-pods"
+          ],
+          "focus": [
+            "k8s-worker"
+          ],
+          "audio": "audio/02-05-restart-policy.wav"
+        },
+        {
+          "heading": "Init containers",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-pod-init"
+          ],
+          "focus": [
+            "k8s-pod-kind"
+          ],
+          "audio": "audio/02-06-init-containers.wav"
+        },
+        {
+          "heading": "Multi-container pods — the sidecar pattern",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-pod-sidecar",
+            "k8s-pod-containers"
+          ],
+          "focus": [
+            "k8s-pod-kind"
+          ],
+          "audio": "audio/02-07-sidecar-pattern.wav"
+        },
+        {
+          "heading": "Probes — liveness, readiness, startup",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-pod-probes"
+          ],
+          "focus": [
+            "k8s-pod-kind"
+          ],
+          "audio": "audio/02-08-probes.wav"
+        },
+        {
+          "heading": "Labels — turning a flat list into a queryable set",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-pod-kind"
+          ],
+          "focus": [
+            "k8s-workloads"
+          ],
+          "audio": "audio/02-09-labels.wav"
+        },
+        {
+          "heading": "Label selectors",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-service",
+            "k8s-pod-kind"
+          ],
+          "focus": [
+            "k8s-networking"
+          ],
+          "audio": "audio/02-10-label-selectors.wav"
+        },
+        {
+          "heading": "Annotations — non-identifying metadata",
+          "scene": "kubernetes",
+          "spine": false,
+          "highlight": [
+            "k8s-pod-kind"
+          ],
+          "focus": [
+            "k8s-pod-kind"
+          ],
+          "audio": "audio/02-11-annotations.wav"
+        },
+        {
+          "heading": "Namespaces — soft tenancy boundaries",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-cluster"
+          ],
+          "focus": [
+            "k8s-cluster"
+          ],
+          "audio": "audio/02-12-namespaces.wav"
+        },
+        {
+          "heading": "Cleaning up",
+          "scene": "kubernetes",
+          "spine": false,
+          "audio": "audio/02-13-cleaning-up.wav"
+        }
+      ]
+    },
+    {
+      "id": "03-deployments",
+      "title": "Deployments, ReplicaSets & Rollouts",
+      "notebook": "notebooks/03-deployments-replicasets-and-rollouts.ipynb",
+      "defaultScene": "kubernetes",
+      "sections": [
+        {
+          "heading": "What's covered",
+          "scene": "kubernetes",
+          "spine": true,
+          "role": "hook"
+        },
+        {
+          "heading": "Why bare pods aren't enough",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-pods"
+          ],
+          "focus": [
+            "k8s-worker"
+          ],
+          "audio": "audio/03-02-why-controllers.wav"
+        },
+        {
+          "heading": "ReplicaSet — keeping N pods alive",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-replicaset"
+          ],
+          "focus": [
+            "k8s-workload-kinds"
+          ],
+          "audio": "audio/03-03-replicaset.wav"
+        },
+        {
+          "heading": "Why you almost never write a ReplicaSet directly",
+          "scene": "kubernetes",
+          "spine": false,
+          "highlight": [
+            "k8s-deployment",
+            "k8s-replicaset"
+          ],
+          "focus": [
+            "k8s-workload-kinds"
+          ],
+          "audio": "audio/03-04-replicaset-vs-deployment.wav"
+        },
+        {
+          "heading": "Anatomy of a Deployment manifest",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-deployment"
+          ],
+          "focus": [
+            "k8s-workload-kinds"
+          ],
+          "audio": "audio/03-05-deployment-manifest.wav"
+        },
+        {
+          "heading": "Scaling — changing the desired count",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-kc-scale",
+            "k8s-replicaset"
+          ],
+          "focus": [
+            "k8s-workloads"
+          ],
+          "audio": "audio/03-06-scaling.wav"
+        },
+        {
+          "heading": "Rolling updates — shipping a new version with no downtime",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-ro-rolling",
+            "k8s-deployment"
+          ],
+          "focus": [
+            "k8s-rollout"
+          ],
+          "audio": "audio/03-07-rolling-updates.wav"
+        },
+        {
+          "heading": "Rollout history and rollback",
+          "scene": "kubernetes",
+          "spine": false,
+          "highlight": [
+            "k8s-kc-rollout",
+            "k8s-deployment"
+          ],
+          "focus": [
+            "k8s-rollout"
+          ],
+          "audio": "audio/03-08-rollout-history.wav"
+        },
+        {
+          "heading": "Update strategies — `RollingUpdate` vs `Recreate`",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-ro-rolling",
+            "k8s-ro-recreate"
+          ],
+          "focus": [
+            "k8s-rollout"
+          ],
+          "audio": "audio/03-09-update-strategies.wav"
+        },
+        {
+          "heading": "The rest of the workload family",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-statefulset",
+            "k8s-daemonset",
+            "k8s-job",
+            "k8s-cronjob"
+          ],
+          "focus": [
+            "k8s-workload-kinds"
+          ],
+          "audio": "audio/03-10-workload-family.wav"
+        },
+        {
+          "heading": "Cleaning up",
+          "scene": "kubernetes",
+          "spine": false,
+          "audio": "audio/03-11-cleaning-up.wav"
+        }
+      ]
+    },
+    {
+      "id": "04-services-dns",
+      "title": "Services, DNS & Service Discovery",
+      "notebook": "notebooks/04-services-dns-and-service-discovery.ipynb",
+      "defaultScene": "kubernetes",
+      "sections": [
+        {
+          "heading": "What's covered",
+          "scene": "kubernetes",
+          "spine": true,
+          "role": "hook"
+        },
+        {
+          "heading": "Why Services exist",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-pods",
+            "k8s-service"
+          ],
+          "focus": [
+            "k8s-networking"
+          ],
+          "audio": "audio/04-02-why-services.wav"
+        },
+        {
+          "heading": "The Service abstraction — stable identity by label selector",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-service"
+          ],
+          "focus": [
+            "k8s-networking"
+          ],
+          "audio": "audio/04-03-service-abstraction.wav"
+        },
+        {
+          "heading": "`port`, `targetPort`, `nodePort` — the three numbers",
+          "scene": "kubernetes",
+          "spine": false,
+          "highlight": [
+            "k8s-service"
+          ],
+          "focus": [
+            "k8s-networking"
+          ],
+          "audio": "audio/04-04-service-ports.wav"
+        },
+        {
+          "heading": "Endpoints and EndpointSlices — what the Service actually points at",
+          "scene": "kubernetes",
+          "spine": false,
+          "highlight": [
+            "k8s-service",
+            "k8s-pods"
+          ],
+          "focus": [
+            "k8s-networking"
+          ],
+          "audio": "audio/04-05-endpoints.wav"
+        },
+        {
+          "heading": "Service types — `ClusterIP`, `NodePort`, `LoadBalancer`, `ExternalName`",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-service"
+          ],
+          "focus": [
+            "k8s-networking"
+          ],
+          "audio": "audio/04-06-service-types.wav"
+        },
+        {
+          "heading": "How `kube-proxy` actually routes traffic",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-kube-proxy",
+            "k8s-service"
+          ],
+          "focus": [
+            "k8s-worker"
+          ],
+          "audio": "audio/04-07-kube-proxy.wav"
+        },
+        {
+          "heading": "DNS in Kubernetes — CoreDNS and the service name pattern",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-dns",
+            "k8s-service"
+          ],
+          "focus": [
+            "k8s-networking"
+          ],
+          "audio": "audio/04-08-coredns.wav"
+        },
+        {
+          "heading": "Headless Services — DNS to pod IPs, no virtual IP",
+          "scene": "kubernetes",
+          "spine": false,
+          "highlight": [
+            "k8s-dns",
+            "k8s-pods"
+          ],
+          "focus": [
+            "k8s-networking"
+          ],
+          "audio": "audio/04-09-headless-services.wav"
+        },
+        {
+          "heading": "Session affinity & multi-port services",
+          "scene": "kubernetes",
+          "spine": false,
+          "highlight": [
+            "k8s-service"
+          ],
+          "focus": [
+            "k8s-networking"
+          ],
+          "audio": "audio/04-10-session-affinity.wav"
+        },
+        {
+          "heading": "Service vs Ingress — a glance at notebook 09",
+          "scene": "kubernetes",
+          "spine": false,
+          "highlight": [
+            "k8s-service",
+            "k8s-ingress"
+          ],
+          "focus": [
+            "k8s-networking"
+          ],
+          "audio": "audio/04-11-service-vs-ingress.wav"
+        },
+        {
+          "heading": "Cleaning up",
+          "scene": "kubernetes",
+          "spine": false,
+          "audio": "audio/04-12-cleaning-up.wav"
+        }
+      ]
+    },
+    {
+      "id": "05-config-secrets",
+      "title": "ConfigMaps, Secrets & Environment",
+      "notebook": "notebooks/05-configmaps-secrets-and-environment.ipynb",
+      "defaultScene": "kubernetes",
+      "sections": [
+        {
+          "heading": "What's covered",
+          "scene": "kubernetes",
+          "spine": true,
+          "role": "hook"
+        },
+        {
+          "heading": "The configuration problem",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-configmap",
+            "k8s-secret"
+          ],
+          "focus": [
+            "k8s-config"
+          ],
+          "audio": "audio/05-02-config-problem.wav"
+        },
+        {
+          "heading": "ConfigMap — the object",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-configmap"
+          ],
+          "focus": [
+            "k8s-config"
+          ],
+          "audio": "audio/05-03-configmap.wav"
+        },
+        {
+          "heading": "Three ways to consume a ConfigMap",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-configmap",
+            "k8s-cfg-env"
+          ],
+          "focus": [
+            "k8s-config"
+          ],
+          "audio": "audio/05-04-consume-configmap.wav"
+        },
+        {
+          "heading": "Update propagation — env vars vs volume mounts",
+          "scene": "kubernetes",
+          "spine": false,
+          "highlight": [
+            "k8s-cfg-env"
+          ],
+          "focus": [
+            "k8s-config"
+          ],
+          "audio": "audio/05-05-update-propagation.wav"
+        },
+        {
+          "heading": "Immutable ConfigMaps (and Secrets)",
+          "scene": "kubernetes",
+          "spine": false,
+          "highlight": [
+            "k8s-configmap",
+            "k8s-secret"
+          ],
+          "focus": [
+            "k8s-config"
+          ],
+          "audio": "audio/05-06-immutable-config.wav"
+        },
+        {
+          "heading": "Secrets — like ConfigMaps but for sensitive data",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-secret"
+          ],
+          "focus": [
+            "k8s-config"
+          ],
+          "audio": "audio/05-07-secrets.wav"
+        },
+        {
+          "heading": "Creating Secrets",
+          "scene": "kubernetes",
+          "spine": false,
+          "highlight": [
+            "k8s-secret"
+          ],
+          "focus": [
+            "k8s-config"
+          ],
+          "audio": "audio/05-08-creating-secrets.wav"
+        },
+        {
+          "heading": "Consuming Secrets",
+          "scene": "kubernetes",
+          "spine": false,
+          "highlight": [
+            "k8s-secret",
+            "k8s-cfg-env"
+          ],
+          "focus": [
+            "k8s-config"
+          ],
+          "audio": "audio/05-09-consuming-secrets.wav"
+        },
+        {
+          "heading": "Built-in Secret types",
+          "scene": "kubernetes",
+          "spine": false,
+          "highlight": [
+            "k8s-secret"
+          ],
+          "focus": [
+            "k8s-config"
+          ],
+          "audio": "audio/05-10-secret-types.wav"
+        },
+        {
+          "heading": "Image pull secrets",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-pullsecret",
+            "k8s-registry"
+          ],
+          "focus": [
+            "k8s-registry"
+          ],
+          "audio": "audio/05-11-image-pull-secrets.wav"
+        },
+        {
+          "heading": "The downward API — pod metadata as env vars or files",
+          "scene": "kubernetes",
+          "spine": false,
+          "highlight": [
+            "k8s-cfg-env",
+            "k8s-pod-kind"
+          ],
+          "focus": [
+            "k8s-config"
+          ],
+          "audio": "audio/05-12-downward-api.wav"
+        },
+        {
+          "heading": "Cleaning up",
+          "scene": "kubernetes",
+          "spine": false,
+          "audio": "audio/05-13-cleaning-up.wav"
+        }
+      ]
+    },
+    {
+      "id": "06-storage",
+      "title": "Storage: Volumes, PVs & PVCs",
+      "notebook": "notebooks/06-storage-volumes-pvs-and-pvcs.ipynb",
+      "defaultScene": "kubernetes",
+      "sections": [
+        {
+          "heading": "What's covered",
+          "scene": "kubernetes",
+          "spine": true,
+          "role": "hook"
+        },
+        {
+          "heading": "Why storage matters — the container filesystem is ephemeral",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-pods"
+          ],
+          "focus": [
+            "k8s-worker"
+          ],
+          "audio": "audio/06-02-why-storage.wav"
+        },
+        {
+          "heading": "Volumes — the basics",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-storage"
+          ],
+          "focus": [
+            "k8s-storage"
+          ],
+          "audio": "audio/06-03-volumes.wav"
+        },
+        {
+          "heading": "Ephemeral volume types — `emptyDir`, `hostPath`, `projected`",
+          "scene": "kubernetes",
+          "spine": false,
+          "highlight": [
+            "k8s-storage"
+          ],
+          "focus": [
+            "k8s-storage"
+          ],
+          "audio": "audio/06-04-ephemeral-volumes.wav"
+        },
+        {
+          "heading": "The persistent storage abstraction — PV, PVC, StorageClass",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-pv",
+            "k8s-pvc",
+            "k8s-sc"
+          ],
+          "focus": [
+            "k8s-storage"
+          ],
+          "audio": "audio/06-05-persistent-storage.wav"
+        },
+        {
+          "heading": "Access modes and volume modes",
+          "scene": "kubernetes",
+          "spine": false,
+          "highlight": [
+            "k8s-pvc",
+            "k8s-pv"
+          ],
+          "focus": [
+            "k8s-storage"
+          ],
+          "audio": "audio/06-06-access-modes.wav"
+        },
+        {
+          "heading": "`StorageClass` — dynamic provisioning",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-sc",
+            "k8s-pv"
+          ],
+          "focus": [
+            "k8s-storage"
+          ],
+          "audio": "audio/06-07-storageclass.wav"
+        },
+        {
+          "heading": "Reclaim policies — what happens when a PVC is deleted",
+          "scene": "kubernetes",
+          "spine": false,
+          "highlight": [
+            "k8s-pvc",
+            "k8s-pv"
+          ],
+          "focus": [
+            "k8s-storage"
+          ],
+          "audio": "audio/06-08-reclaim-policies.wav"
+        },
+        {
+          "heading": "The Container Storage Interface — how Kubernetes talks to storage",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-csi",
+            "k8s-sc"
+          ],
+          "focus": [
+            "k8s-storage"
+          ],
+          "audio": "audio/06-09-csi.wav"
+        },
+        {
+          "heading": "StatefulSets and `volumeClaimTemplates` — per-pod PVCs",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-statefulset",
+            "k8s-pvc"
+          ],
+          "focus": [
+            "k8s-storage"
+          ],
+          "audio": "audio/06-10-statefulset-storage.wav"
+        },
+        {
+          "heading": "Resizing PVCs",
+          "scene": "kubernetes",
+          "spine": false,
+          "highlight": [
+            "k8s-pvc"
+          ],
+          "focus": [
+            "k8s-storage"
+          ],
+          "audio": "audio/06-11-resizing-pvcs.wav"
+        },
+        {
+          "heading": "Cleaning up",
+          "scene": "kubernetes",
+          "spine": false,
+          "audio": "audio/06-12-cleaning-up.wav"
+        }
+      ]
+    },
+    {
+      "id": "07-scheduling",
+      "title": "Scheduling: Resources, Affinity, Taints & Tolerations",
+      "notebook": "notebooks/07-scheduling-resources-affinity-taints-tolerations.ipynb",
+      "defaultScene": "kubernetes",
+      "sections": [
+        {
+          "heading": "What's covered",
+          "scene": "kubernetes",
+          "spine": true,
+          "role": "hook"
+        },
+        {
+          "heading": "The scheduling problem — what `kube-scheduler` does",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-scheduler"
+          ],
+          "focus": [
+            "k8s-scheduling"
+          ],
+          "audio": "audio/07-02-scheduling-problem.wav"
+        },
+        {
+          "heading": "Resource requests and limits",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-requests",
+            "k8s-limits"
+          ],
+          "focus": [
+            "k8s-scheduling"
+          ],
+          "audio": "audio/07-03-requests-limits.wav"
+        },
+        {
+          "heading": "QoS classes — `Guaranteed`, `Burstable`, `BestEffort`",
+          "scene": "kubernetes",
+          "spine": false,
+          "highlight": [
+            "k8s-requests",
+            "k8s-limits"
+          ],
+          "focus": [
+            "k8s-scheduling"
+          ],
+          "audio": "audio/07-04-qos-classes.wav"
+        },
+        {
+          "heading": "`LimitRange` and `ResourceQuota` — namespace governance",
+          "scene": "kubernetes",
+          "spine": false,
+          "highlight": [
+            "k8s-requests",
+            "k8s-limits"
+          ],
+          "focus": [
+            "k8s-scheduling"
+          ],
+          "audio": "audio/07-05-limitrange-quota.wav"
+        },
+        {
+          "heading": "`nodeSelector` — the simplest pin",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-nodeselector"
+          ],
+          "focus": [
+            "k8s-scheduling"
+          ],
+          "audio": "audio/07-06-nodeselector.wav"
+        },
+        {
+          "heading": "Node affinity — richer placement against node labels",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-affinity"
+          ],
+          "focus": [
+            "k8s-scheduling"
+          ],
+          "audio": "audio/07-07-node-affinity.wav"
+        },
+        {
+          "heading": "Pod affinity and anti-affinity — placement relative to *other pods*",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-affinity"
+          ],
+          "focus": [
+            "k8s-scheduling"
+          ],
+          "audio": "audio/07-08-pod-affinity.wav"
+        },
+        {
+          "heading": "Taints and tolerations — the node-side \"go away\"",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-taints",
+            "k8s-tolerations"
+          ],
+          "focus": [
+            "k8s-scheduling"
+          ],
+          "audio": "audio/07-09-taints-tolerations.wav"
+        },
+        {
+          "heading": "Eviction — what happens when nodes get squeezed",
+          "scene": "kubernetes",
+          "spine": false,
+          "highlight": [
+            "k8s-limits",
+            "k8s-pods"
+          ],
+          "focus": [
+            "k8s-scheduling"
+          ],
+          "audio": "audio/07-10-eviction.wav"
+        },
+        {
+          "heading": "Topology spread constraints — even distribution as a first-class field",
+          "scene": "kubernetes",
+          "spine": false,
+          "highlight": [
+            "k8s-affinity"
+          ],
+          "focus": [
+            "k8s-scheduling"
+          ],
+          "audio": "audio/07-11-topology-spread.wav"
+        },
+        {
+          "heading": "`PriorityClass` and preemption — when high-priority pods kick others out",
+          "scene": "kubernetes",
+          "spine": false,
+          "highlight": [
+            "k8s-scheduler"
+          ],
+          "focus": [
+            "k8s-scheduling"
+          ],
+          "audio": "audio/07-12-priorityclass.wav"
+        },
+        {
+          "heading": "How the scheduler decides — filter, score, profiles",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-scheduler"
+          ],
+          "focus": [
+            "k8s-control-plane"
+          ],
+          "audio": "audio/07-13-scheduler-internals.wav"
+        },
+        {
+          "heading": "Cleaning up",
+          "scene": "kubernetes",
+          "spine": false,
+          "audio": "audio/07-14-cleaning-up.wav"
+        }
+      ]
+    },
+    {
+      "id": "08-cluster-architecture",
+      "title": "Cluster Architecture & kubeadm",
+      "notebook": "notebooks/08-cluster-architecture-and-kubeadm.ipynb",
+      "defaultScene": "kubernetes",
+      "sections": [
+        {
+          "heading": "What's covered",
+          "scene": "kubernetes",
+          "spine": true,
+          "role": "hook"
+        },
+        {
+          "heading": "The control plane in one diagram",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-control-plane"
+          ],
+          "focus": [
+            "k8s-control-plane"
+          ],
+          "audio": "audio/08-02-control-plane-overview.wav"
+        },
+        {
+          "heading": "`etcd` — the cluster's source of truth",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-etcd"
+          ],
+          "focus": [
+            "k8s-control-plane"
+          ],
+          "audio": "audio/08-03-etcd.wav"
+        },
+        {
+          "heading": "`kube-apiserver` — the front door",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-apiserver"
+          ],
+          "focus": [
+            "k8s-control-plane"
+          ],
+          "audio": "audio/08-04-apiserver.wav"
+        },
+        {
+          "heading": "`kube-scheduler` and `kube-controller-manager`",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-scheduler",
+            "k8s-controllers"
+          ],
+          "focus": [
+            "k8s-control-plane"
+          ],
+          "audio": "audio/08-05-scheduler-controllers.wav"
+        },
+        {
+          "heading": "Node components — `kubelet`, `kube-proxy`, the container runtime",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-kubelet",
+            "k8s-kube-proxy",
+            "k8s-cri"
+          ],
+          "focus": [
+            "k8s-worker"
+          ],
+          "audio": "audio/08-06-node-components.wav"
+        },
+        {
+          "heading": "The plug-in interfaces — CRI, CNI, CSI",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-cri",
+            "k8s-csi"
+          ],
+          "focus": [
+            "k8s-worker"
+          ],
+          "audio": "audio/08-07-plugin-interfaces.wav"
+        },
+        {
+          "heading": "Static pods — how the control plane bootstraps itself",
+          "scene": "kubernetes",
+          "spine": false,
+          "highlight": [
+            "k8s-kubelet",
+            "k8s-control-plane"
+          ],
+          "focus": [
+            "k8s-cluster"
+          ],
+          "audio": "audio/08-08-static-pods.wav"
+        },
+        {
+          "heading": "`kubeadm` — installing a cluster from scratch",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-control-plane",
+            "k8s-worker"
+          ],
+          "focus": [
+            "k8s-cluster"
+          ],
+          "audio": "audio/08-09-kubeadm.wav"
+        },
+        {
+          "heading": "The cluster PKI — who has what certificate",
+          "scene": "kubernetes",
+          "spine": false,
+          "highlight": [
+            "k8s-apiserver",
+            "k8s-etcd"
+          ],
+          "focus": [
+            "k8s-control-plane"
+          ],
+          "audio": "audio/08-10-cluster-pki.wav"
+        },
+        {
+          "heading": "etcd backup and restore — the CKA's flag-bearer skill",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-etcd"
+          ],
+          "focus": [
+            "k8s-control-plane"
+          ],
+          "audio": "audio/08-11-etcd-backup.wav"
+        },
+        {
+          "heading": "Cluster upgrade with `kubeadm`",
+          "scene": "kubernetes",
+          "spine": false,
+          "highlight": [
+            "k8s-control-plane"
+          ],
+          "focus": [
+            "k8s-cluster"
+          ],
+          "audio": "audio/08-12-cluster-upgrade.wav"
+        },
+        {
+          "heading": "What to practise",
+          "scene": "kubernetes",
+          "spine": false
+        }
+      ]
+    },
+    {
+      "id": "09-networking",
+      "title": "Networking, Ingress & Network Policies",
+      "notebook": "notebooks/09-networking-ingress-and-network-policies.ipynb",
+      "defaultScene": "kubernetes",
+      "sections": [
+        {
+          "heading": "What's covered",
+          "scene": "kubernetes",
+          "spine": true,
+          "role": "hook"
+        },
+        {
+          "heading": "The Kubernetes networking model — four hard requirements",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-networking",
+            "k8s-pods"
+          ],
+          "focus": [
+            "k8s-networking"
+          ],
+          "audio": "audio/09-02-networking-model.wav"
+        },
+        {
+          "heading": "Pod IPs and pod CIDRs — where the addresses come from",
+          "scene": "kubernetes",
+          "spine": false,
+          "highlight": [
+            "k8s-pods"
+          ],
+          "focus": [
+            "k8s-worker"
+          ],
+          "audio": "audio/09-03-pod-ips.wav"
+        },
+        {
+          "heading": "What a CNI plugin actually does — second-by-second",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-kubelet",
+            "k8s-pods"
+          ],
+          "focus": [
+            "k8s-worker"
+          ],
+          "audio": "audio/09-04-cni-plugin.wav"
+        },
+        {
+          "heading": "The three communication paths",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-service",
+            "k8s-pods"
+          ],
+          "focus": [
+            "k8s-networking"
+          ],
+          "audio": "audio/09-05-communication-paths.wav"
+        },
+        {
+          "heading": "Why Ingress — Services don't go far enough",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-service",
+            "k8s-ingress"
+          ],
+          "focus": [
+            "k8s-networking"
+          ],
+          "audio": "audio/09-06-why-ingress.wav"
+        },
+        {
+          "heading": "Ingress controllers — the proxies that do the work",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-ingress"
+          ],
+          "focus": [
+            "k8s-networking"
+          ],
+          "audio": "audio/09-07-ingress-controllers.wav"
+        },
+        {
+          "heading": "Anatomy of an Ingress resource",
+          "scene": "kubernetes",
+          "spine": false,
+          "highlight": [
+            "k8s-ingress"
+          ],
+          "focus": [
+            "k8s-networking"
+          ],
+          "audio": "audio/09-08-ingress-manifest.wav"
+        },
+        {
+          "heading": "The Gateway API — Ingress, but more",
+          "scene": "kubernetes",
+          "spine": false,
+          "highlight": [
+            "k8s-ingress",
+            "k8s-service"
+          ],
+          "focus": [
+            "k8s-networking"
+          ],
+          "audio": "audio/09-09-gateway-api.wav"
+        },
+        {
+          "heading": "NetworkPolicy — Kubernetes' built-in firewall",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-netpol"
+          ],
+          "focus": [
+            "k8s-networking"
+          ],
+          "audio": "audio/09-10-networkpolicy.wav"
+        },
+        {
+          "heading": "NetworkPolicy semantics — additive allow, default deny",
+          "scene": "kubernetes",
+          "spine": false,
+          "highlight": [
+            "k8s-netpol",
+            "k8s-pods"
+          ],
+          "focus": [
+            "k8s-networking"
+          ],
+          "audio": "audio/09-11-networkpolicy-semantics.wav"
+        },
+        {
+          "heading": "NetworkPolicy patterns — common recipes",
+          "scene": "kubernetes",
+          "spine": false,
+          "highlight": [
+            "k8s-netpol"
+          ],
+          "focus": [
+            "k8s-networking"
+          ],
+          "audio": "audio/09-12-networkpolicy-patterns.wav"
+        },
+        {
+          "heading": "CoreDNS revisit — customising cluster DNS",
+          "scene": "kubernetes",
+          "spine": false,
+          "highlight": [
+            "k8s-dns"
+          ],
+          "focus": [
+            "k8s-networking"
+          ],
+          "audio": "audio/09-13-coredns-revisit.wav"
+        },
+        {
+          "heading": "Cleaning up",
+          "scene": "kubernetes",
+          "spine": false,
+          "audio": "audio/09-14-cleaning-up.wav"
+        }
+      ]
+    },
+    {
+      "id": "10-rbac-security",
+      "title": "RBAC, Security, Troubleshooting & CKA Prep",
+      "notebook": "notebooks/10-rbac-security-troubleshooting-and-cka-prep.ipynb",
+      "defaultScene": "kubernetes",
+      "sections": [
+        {
+          "heading": "What's covered",
+          "scene": "kubernetes",
+          "spine": true,
+          "role": "hook"
+        },
+        {
+          "heading": "Identity in Kubernetes — Users vs ServiceAccounts",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-sa",
+            "k8s-apiserver"
+          ],
+          "focus": [
+            "k8s-rbac"
+          ],
+          "audio": "audio/10-02-identity.wav"
+        },
+        {
+          "heading": "ServiceAccounts — pod identity",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-sa"
+          ],
+          "focus": [
+            "k8s-rbac"
+          ],
+          "audio": "audio/10-03-serviceaccounts.wav"
+        },
+        {
+          "heading": "RBAC — Roles and ClusterRoles",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-role",
+            "k8s-crole"
+          ],
+          "focus": [
+            "k8s-rbac"
+          ],
+          "audio": "audio/10-04-rbac-roles.wav"
+        },
+        {
+          "heading": "RBAC — bindings, subjects, and `auth can-i`",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-rb",
+            "k8s-crb",
+            "k8s-subject"
+          ],
+          "focus": [
+            "k8s-rbac"
+          ],
+          "audio": "audio/10-05-rbac-bindings.wav"
+        },
+        {
+          "heading": "Aggregated and default roles",
+          "scene": "kubernetes",
+          "spine": false,
+          "highlight": [
+            "k8s-crole"
+          ],
+          "focus": [
+            "k8s-rbac"
+          ],
+          "audio": "audio/10-06-aggregated-roles.wav"
+        },
+        {
+          "heading": "Pod security context — running with the right user, perms, and capabilities",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-sec-nonroot",
+            "k8s-sec-readonly"
+          ],
+          "focus": [
+            "k8s-security"
+          ],
+          "audio": "audio/10-07-security-context.wav"
+        },
+        {
+          "heading": "Pod Security Admission (PSA) — enforcing security at the namespace level",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-sec-psa",
+            "k8s-apiserver"
+          ],
+          "focus": [
+            "k8s-security"
+          ],
+          "audio": "audio/10-08-psa.wav"
+        },
+        {
+          "heading": "etcd encryption at rest",
+          "scene": "kubernetes",
+          "spine": false,
+          "highlight": [
+            "k8s-etcd"
+          ],
+          "focus": [
+            "k8s-control-plane"
+          ],
+          "audio": "audio/10-09-etcd-encryption.wav"
+        },
+        {
+          "heading": "Image security and supply chain",
+          "scene": "kubernetes",
+          "spine": false,
+          "highlight": [
+            "k8s-registry",
+            "k8s-digest-pin"
+          ],
+          "focus": [
+            "k8s-registry"
+          ],
+          "audio": "audio/10-10-image-security.wav"
+        },
+        {
+          "heading": "Troubleshooting — application failures",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-pods",
+            "k8s-kc-logs"
+          ],
+          "focus": [
+            "k8s-worker"
+          ],
+          "audio": "audio/10-11-troubleshoot-apps.wav"
+        },
+        {
+          "heading": "Troubleshooting — control plane failures",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-control-plane"
+          ],
+          "focus": [
+            "k8s-control-plane"
+          ],
+          "audio": "audio/10-12-troubleshoot-control-plane.wav"
+        },
+        {
+          "heading": "Troubleshooting — worker node failures",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-kubelet",
+            "k8s-worker"
+          ],
+          "focus": [
+            "k8s-worker"
+          ],
+          "audio": "audio/10-13-troubleshoot-nodes.wav"
+        },
+        {
+          "heading": "Troubleshooting — networking failures",
+          "scene": "kubernetes",
+          "spine": true,
+          "highlight": [
+            "k8s-service",
+            "k8s-dns"
+          ],
+          "focus": [
+            "k8s-networking"
+          ],
+          "audio": "audio/10-14-troubleshoot-networking.wav"
+        },
+        {
+          "heading": "CKA exam strategy",
+          "scene": "kubernetes",
+          "spine": false,
+          "audio": "audio/10-15-cka-strategy.wav"
+        },
+        {
+          "heading": "You're at the end of the course",
+          "scene": "kubernetes",
+          "spine": false
+        }
+      ]
+    }
+  ]
+}

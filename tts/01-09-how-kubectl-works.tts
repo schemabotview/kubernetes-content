@@ -1,0 +1,13 @@
+How kubectl actually works.
+
+When you ran that first command, you used the kubectl client, a single binary on your laptop. But kubectl did not run the pod itself. It built an object and sent it to the ay-pee-eye server. There are a few things to lock in here.
+
+Kubectl is stateless. It reads the config file at tilde slash dot kube slash config to find the ay-pee-eye server's address and your credentials, then makes h-t-t-p-s calls. Anyone who has that file can drive the cluster.
+
+Every component talks to the ay-pee-eye server. The scheduler, the kube-let, the controllers, and even kubectl. None of them talk to et-see-dee directly. The ay-pee-eye server is the only writer.
+
+Authentication and authorization both happen at the ay-pee-eye server. Who you are is figured out from the credential in your kube config. What you are allowed to do is decided by are-back, which we cover near the end of the course.
+
+And then there is the watch model. Components like the scheduler and the kube-let do not constantly poll the ay-pee-eye server. Instead they open a streaming watch that says, tell me whenever a pod object changes, and they react. That is how the cluster stays responsive without hammering the ay-pee-eye.
+
+Why does this matter. Two reasons. First, when something goes wrong, the question is almost always, what does the ay-pee-eye server think the state is, and what does the node actually think the state is. Bridging those two views is the whole troubleshooting flow. Second, this ay-pee-eye centric design is why everything in kubernetes feels consistent. It is all just objects, read and written through one front door.

@@ -1,0 +1,11 @@
+Cleaning up.
+
+A few hours into kubernetes and you will have stray pods, leftover deployments, and orphaned config maps scattered around. There are two ways to clean up.
+
+The targeted way. Delete pod, then a name, removes one pod. Delete with the dash f flag and a file removes whatever that file describes. And delete, then a kind and a name, works for any other kind of object.
+
+The bulk way. Delete a kind with the all flag removes every object of that kind in the current namespace. Delete all, with the all flag, in a given namespace, wipes every common kind in that namespace. Take real care here, because these commands are namespaced and they genuinely do delete.
+
+And then there is the cluster itself, for when you are done for the day. With kind, you delete the cluster by name. With minikube, you run minikube delete. Either way the whole cluster comes down in seconds.
+
+That throwaway quality is exactly the point of using kind for learning. Break it, delete it, recreate it, with no consequences. The fastest way to get comfortable is to spin a cluster up, experiment freely, and tear it down without a second thought.

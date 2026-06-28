@@ -1,0 +1,15 @@
+The kubernetes object model.
+
+Open any kubernetes manifest. A pod, a service, a deployment, a config map, a secret, even a custom one. You will always find the same five top level keys. Memorize these now and you will never feel lost in a new manifest again.
+
+The first is ay-pee-eye version, which names the ay-pee-eye group and version this object belongs to. Core objects like pod, service, config map, and namespace use plain v one, the implicit core group. Newer objects carry a group prefix. Deployments live under apps slash v one, jobs and cron jobs under batch slash v one, ingress and network policy under the networking group, and are-back under the are-back authorization group.
+
+The second is kind, the object type. Pod, deployment, service, and so on. Always capitalized, always singular.
+
+The third is metadata, the identifying information. Every object has a name, unique within its namespace and kind, an optional namespace that defaults to default, plus labels and annotations. A few fields are system assigned, like the unique id and the creation timestamp.
+
+The fourth is spec, which is what you want. This is your contribution. You write three replicas because you want three replicas. You write a particular image because you want that image.
+
+And the fifth is status, which is what actually is. This is the cluster's contribution. You do not write it. The controllers fill it in. The phase, the pod eye-pee, the conditions, all status fields. You read status to understand what really happened.
+
+The relationship between spec and status is the whole game. You declare the spec, a controller observes the difference, acts to close the gap, and records reality in status. That loop, running forever, is kubernetes.

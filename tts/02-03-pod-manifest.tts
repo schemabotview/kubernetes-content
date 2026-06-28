@@ -1,0 +1,13 @@
+Anatomy of a pod manifest.
+
+The smallest valid pod manifest is just four required keys. The ay-pee-eye version, the kind set to pod, metadata with a name, and a spec listing one container with a name and an image. That alone will create a pod and run it.
+
+But almost every pod you meet in the wild has more fields, so let us walk through the realistic version.
+
+In metadata, alongside the name, you add labels, which are key value pairs you will select on later, like app equals web and tier equals frontend. You also add annotations, which are non identifying notes for tools and humans.
+
+Inside the container, the important fields are these. The image, of course. The image pull policy, which can be, if not present, always, or never. The ports, where you list a container port and optionally name it. The environment variables. And command and args, which override the image's entry point and default command, exactly like they did under docker.
+
+Then there are pod level fields in the spec. The restart policy. The service account name, which controls in cluster ay-pee-eye access. And the termination grace period in seconds, which is the window between the polite shutdown signal and the forced kill.
+
+One thing worth calling out before we run anything. The container port field is documentation, not a firewall. Listing it does not open or close anything. The container is already free to listen on any port. The field is there so that services and ingresses can refer to the port by name. Picture it as a label on the door, not a lock.

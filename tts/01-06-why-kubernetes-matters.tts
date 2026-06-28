@@ -1,0 +1,19 @@
+Why kubernetes matters.
+
+Containers in production today mostly mean kubernetes in production. Let us walk through where it actually runs.
+
+The big three managed offerings. Elastic kubernetes service on ay-double-you-ess, google kubernetes engine on google cloud, and azure kubernetes service on azure. All three give you a cluster with the control plane managed for you. You just bring the workloads. Tens of thousands of companies run on these.
+
+On premises and at the edge. Openshift, which is red hat's distribution, rancher, and plain kube-ay-dee-m clusters. Banks, telcos, and anything heavily regulated tend to live here.
+
+Developer laptops. Kind, minikube, and docker desktop's bundled kubernetes. That is the cluster you will spin up later in this notebook.
+
+Continuous integration and delivery. Many modern see-eye systems are kubernetes native, and self hosted runners often run as pods themselves.
+
+And the platform layer. A lot of internal developer platforms are built on top of kubernetes underneath.
+
+There are two facts to absorb here.
+
+First, kubernetes is the default. When a company says it runs on the cloud, the next sentence is usually, on kubernetes. Skipping it is increasingly rare.
+
+Second, the see-kay-ay is the certification. The certified kubernetes administrator exam, run by the linux foundation and the cloud native computing foundation, is the most widely recognized credential. This course is structured to take you from zero all the way to ready to sit it. By the final notebook you will have hands on familiarity with every domain the exam tests. Install, configuration, workloads, services, networking, storage, security, and troubleshooting.

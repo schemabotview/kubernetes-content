@@ -1,0 +1,17 @@
+Anatomy of a kubectl command.
+
+Most kubectl commands follow the same shape. A verb, then a resource, then an optional name, then optional flags.
+
+The verb is the action. Get, describe, create, apply, delete, logs, exec, edit, and so on. The resource is the kind of object. Pods, deployments, services, nodes. The name is a specific object, and if you leave it out, the command acts on all of them. The flags fine tune the command. For example, the namespace flag, output as yaml, or a label selector.
+
+So, get pods lists all pods in the current namespace. Get pod hello shows one pod. Describe pod hello gives verbose details and recent events for that pod. Logs hello shows the output of the pod's container. Exec, with the interactive flags, opens a shell inside the pod. And delete pod hello removes it.
+
+A few conventions are worth memorizing right now.
+
+Resource names are flexible. Pod, pods, and the short alias p-o all mean the same thing. Deployment, deployments, and deploy are interchangeable too. Most kinds have a two to four letter short alias, and you can list them all with kubectl api dash resources.
+
+The namespace flag. Pods live in namespaces, and the default one is literally called default. Use the namespace flag to target a different one. The all namespaces flag means, across every namespace, for listing commands.
+
+Output format. Add output as wide for extra columns, output as yaml for the full object, or a json path expression to pull out a single field. This is critical for the exam.
+
+And aliases. Many people alias kubectl to a single letter k in their shell. We will write kubectl in full throughout these notebooks to keep things explicit.

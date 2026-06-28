@@ -1,0 +1,13 @@
+Getting help.
+
+You will not memorize every flag of every command, or every field of every object. The good news is you do not need to, because kubectl carries its own documentation.
+
+The help flag, on its own, gives you the top level command list. Add it after a verb, and you get the flags for that specific verb. So get, then the help flag, shows everything get can do.
+
+Then there is kubectl explain, which is the one to really internalize. It describes the fields of an object kind. Pair it with a dotted path to dig deeper. Explain pod shows the top level fields. Explain pod dot spec shows the spec. Explain pod dot spec dot containers shows the container fields. This is the on disk version of the ay-pee-eye reference, and it works completely offline.
+
+Kubectl api dash resources lists every resource kind the cluster knows about, along with its short name, its ay-pee-eye group, and whether it is namespaced.
+
+For deeper documentation, the canonical reference is the official site, kubernetes dot eye-oh slash docs. The concepts and tasks sections are excellent. And importantly, the see-kay-ay curriculum lists exactly which documentation pages are allowed during the exam. Anything under the docs site is fair game, so practising with it now pays off later.
+
+Here is the flow when you are stuck. Use explain for, what fields does this thing have. Use the help flag for, what flags does this command take. And then go to the docs site for tutorials and the bigger conceptual picture.

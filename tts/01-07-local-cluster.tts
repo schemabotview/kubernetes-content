@@ -1,0 +1,15 @@
+Getting a local cluster.
+
+You only learn kubernetes by running pods, and to run pods you need a cluster. There are four good options, ordered roughly by simplicity.
+
+Option one is kind, which stands for kubernetes in docker. It is a single binary that spins up a fresh cluster by running each kubernetes node as a docker container. It boots in under a minute, it is single node by default but supports multiple nodes, and it is easy to reset. The trade off is that the nodes are docker containers rather than virtual machines, which is fine for learning but slightly different from a real install.
+
+Option two is minikube, the veteran tool. It runs a single node cluster inside a virtual machine or a container, and it ships with add ons that bundle things you would otherwise install yourself. It is very forgiving, but it is slower to boot than kind.
+
+Option three is docker desktop's bundled kubernetes. If you already have docker desktop, there is a checkbox in settings labelled enable kubernetes. Tick it, wait a few minutes, and you have a cluster with zero new installs. The downside is that it is not always the latest version, and resetting it is heavyweight.
+
+Option four is kube-ay-dee-m on virtual machines. This is the real install. You bring up three or more linux virtual machines, install the kube-let, kube-ay-dee-m, and kubectl, then initialize the control plane on one and join the others. It matches production exactly and the see-kay-ay expects it, but it is the heaviest setup, so it is not where you want to start on day one.
+
+For this notebook and the next several chapters, use kind. It is the lightest path to a working cluster. We will build a kube-ay-dee-m lab later when we need to see the real control plane components.
+
+Whichever option you pick, you also need kubectl, the command line client that talks to the cluster.

@@ -1,0 +1,21 @@
+Your first pod.
+
+The kubernetes equivalent of hello world is to use kubectl run to launch a pod named hello from the n-ginx alpine image. That single command does a surprising amount of work. Let us trace the sequence under the hood.
+
+First, kubectl parses the command and builds a pod object in memory, a small document that says, I want a pod named hello whose only container is n-ginx alpine.
+
+Second, it sends that object to the ay-pee-eye server as an h-t-t-p post.
+
+Third, the ay-pee-eye server validates the object and writes it to et-see-dee.
+
+Fourth, the scheduler notices there is a pod in et-see-dee with no node assigned. It picks a node, and with kind there is only one, then writes that decision back through the ay-pee-eye server.
+
+Fifth, the kube-let on the chosen node sees that it has a new pod to run. It tells the container runtime to pull the n-ginx alpine image and start a container.
+
+Sixth, the container starts. The kube-let updates the pod's status, from pending, to container creating, to running, and that status flows back into et-see-dee.
+
+And finally, when you list the pods, you are simply reading the latest status from the ay-pee-eye server.
+
+You did the work of the first two steps. Everything else happened on its own. Notice what kubectl run did not do. It did not connect to a server and launch a container directly. It wrote an object to a database and went home. The rest was a controller, somewhere, watching that database and reacting.
+
+This is the heart of kubernetes. Declarative state, plus controllers that reconcile reality to match it. You will see this same pattern with every other object in this course.

@@ -1,0 +1,17 @@
+The core pod lifecycle.
+
+A pod moves through a small set of phases. It starts in pending, where it has been scheduled, the image is pulling, and any init containers are running. Then it moves to running, once at least one container is up. From there it can reach succeeded, when its containers exit cleanly, or failed, when a container exits with an error. There is also unknown, which means the node has lost contact with the ay-pee-eye server.
+
+Now the everyday commands for living with a pod.
+
+Get pods lists the pods in the current namespace. Add the watch flag to follow changes live, output as wide to see the node and eye-pee, or the all namespaces flag to see everything.
+
+Describe pod, then the name, gives you verbose details. Events, the image, the eye-pee, the conditions, and the last reason for any container restart. This is the single most useful, why is my pod unhappy, command.
+
+Logs, then the name, shows the standard output and standard error of the pod's main container. Add the follow flag to stream it live, or the previous flag to see the logs of the previous container instance after a crash.
+
+Exec, with the interactive flags, the name, a double dash, and a command, runs that command inside the container. The double dash separates the kubectl flags from the command you want to run. So exec with a double dash and the word shell opens an interactive shell.
+
+Port forward tunnels a local port to a port on the pod, which is handy for poking at something that is not exposed yet.
+
+And delete pod removes it. Here is the key thing. With a bare pod, delete means it stays gone. But with a pod owned by a deployment or a daemon set, a replacement appears within seconds, because the controller is busy reconciling the desired state.

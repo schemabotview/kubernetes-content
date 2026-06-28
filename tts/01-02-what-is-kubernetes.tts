@@ -1,0 +1,13 @@
+What is kubernetes.
+
+If you ask ten people what kubernetes is, you will get ten slightly different answers. Here is the cleanest one-line definition. Kubernetes is a system that runs containers across a fleet of machines for you, restarts them when they die, replaces them when a machine dies, and gives them a stable way to find each other. That one sentence does a lot of work, so let us pick it apart.
+
+A fleet of machines. Kubernetes assumes you have more than one server. They might be physical, virtual, on premises, or in the cloud. It does not care. Each machine is called a node. One small group of nodes runs kubernetes itself, called the control plane, and the rest run your containers, called worker nodes.
+
+Runs containers for you. You do not tell kubernetes to start this container on that specific server. You tell it that you want three copies of this image running somewhere in the cluster, and kubernetes figures out where. That decision, which container goes on which node, is called scheduling.
+
+Restarts them when they die. If a container crashes, kubernetes notices and starts a new one. If a whole machine dies, kubernetes marks the containers on it as lost and starts replacements on the surviving nodes. You declare the desired state, and kubernetes works to maintain it.
+
+A stable way to find each other. Containers come and go, and their eye-pee addresses change every time. Kubernetes gives you a service, a stable name and a stable eye-pee, that always points at whichever containers are currently alive for a given workload.
+
+The name kubernetes is greek for helmsman, the person steering the ship. The k-eight-s abbreviation is just k, then eight letters, then s. It is also commonly called kube. All three mean the same thing.

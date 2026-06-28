@@ -1,0 +1,19 @@
+The orchestration problem, what docker alone does not solve.
+
+You finished the docker material, so you can already do a lot. You can build images, run containers, mount volumes, wire up networks, and bring up a small stack with docker compose. So what is missing.
+
+The honest answer is this. As soon as you have more than one machine and more than one application, you run into a cluster of problems that docker alone was never designed to solve.
+
+Placement. Say you have five nodes and twenty containers to run. Which container goes on which node. You probably want see-pee-you hungry workloads spread out and small workloads packed tightly. Doing that by hand is a full time job. The kubernetes scheduler does it automatically.
+
+Self healing. A container crashes at three in the morning. With docker alone it stays crashed until someone notices. Kubernetes notices in seconds and starts a replacement. If a whole node dies, kubernetes redistributes its containers to the survivors.
+
+Scaling. You launched two replicas of your ay-pee-eye, traffic doubles, and now you need ten. With plain docker that means logging into machines, picking the right ones, and running commands. Kubernetes scales by changing one number, from two replicas to ten, and the cluster converges on it.
+
+Rollouts and rollbacks. Shipping version two of your service should not mean stopping all of version one and then starting all of version two. Kubernetes does rolling updates. It starts a version two, waits until it is healthy, stops a version one, and repeats. If version two misbehaves, one command rolls everything back.
+
+Service discovery. When the web container wants to call the ay-pee-eye, it should not have to know which specific containers exist right now. Kubernetes gives every workload a stable service name, and cluster dee-en-ess does the rest.
+
+Configuration and secrets. Kubernetes has first class config maps and secrets that pods reference declaratively, instead of wiring environment variables and mounting files by hand.
+
+Docker still does the actual container work. Kubernetes is what you put on top of it once you have more containers than you can supervise personally.
