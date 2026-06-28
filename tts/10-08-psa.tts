@@ -1,0 +1,9 @@
+Pod security admission, enforcing security at the namespace level.
+
+Setting a security context on each pod is great, but you really want a blanket policy that rejects any pod which does not meet the bar. That is what pod security admission does. It replaced the older pod security policy, which was deprecated and removed.
+
+Pod security admission defines three levels of policy, applied per namespace through labels. Privileged allows everything, with no restrictions, and is the default for system namespaces. Baseline applies sane defaults, blocking the obviously dangerous things, no privileged containers, no host namespaces, no host path volumes. It is good for general workloads. And restricted is the hardest line. Pods must run as non root, must drop all capabilities, must use seccomp, and must forbid privilege escalation. It is the match for high trust workloads.
+
+It also has three modes that decide what happens when a pod violates the level. Enforce rejects the pod at admission. Audit allows it but records an audit event. And warn allows it but returns a warning to the user, visible right in the apply output.
+
+You apply all this simply by labelling a namespace, naming the level and the mode. And here is a nice operational pattern. You can run more than one mode at once. Set warn and audit to restricted first, so you see which existing pods would fail, without breaking anything. Then, once you have fixed them, switch enforce to restricted to actually block violations. That lets you tighten security on a live namespace gradually, instead of breaking every workload the moment you turn it on.

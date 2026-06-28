@@ -1,0 +1,13 @@
+The gateway ay-pee-eye, ingress but more.
+
+The ingress object is showing its age. Half of every controller's behaviour lives in annotations, those controller specific magic strings, because the resource itself has no fields for things like rate limiting, header rewrites, or traffic splitting. The gateway ay-pee-eye is the official successor, and it fixes this by splitting the single ingress object into three.
+
+The gateway class describes a kind of gateway implementation, the analogue of the ingress class.
+
+The gateway is a physical listener. An address, a port, a tee-el-ess configuration. It is owned by the infrastructure or platform team.
+
+And the route objects, most commonly the h-t-t-p route, define the actual routing rules and attach to a gateway. These are owned by the application teams.
+
+Why is this better. Three reasons. First, a cleaner role split. Platform admins own the gateways, app teams own the routes, and are-back maps neatly onto that division. Second, richer matching, built into the spec itself, on headers, query parameters, and methods, not just host and path. And third, it is portable across implementations, because the advanced features are real fields rather than vendor specific annotations.
+
+For the exam today, ingress is still the primary object you must know. But the gateway ay-pee-eye is clearly where things are heading, and it is worth recognizing its three part shape, gateway class, gateway, and route, and understanding that it exists to replace the annotation soup with proper, typed configuration owned by the right teams.

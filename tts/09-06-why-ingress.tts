@@ -1,0 +1,9 @@
+Why ingress, services do not go far enough.
+
+You already have services. They handle layer four routing inside the cluster, and with the load balancer type, they can expose a workload publicly. So why is the service not the whole answer.
+
+Because one load balancer per service is expensive and rigid. In a cloud cluster, each load balancer service provisions a separate cloud load balancer. That means real money, tens of dollars a month, for each one. A separate public address per load balancer, which is hard to brand. No h-t-t-p level routing, so you cannot say, send slash ay-pee-eye to the ay-pee-eye service and slash static to the static service. No tee-el-ess termination at the load balancer, so each pod has to do tee-el-ess itself. And no host based routing, so you cannot share one address between two host names.
+
+What you actually want is one public entry point in front of many services, with h-t-t-p aware routing. That is what an ingress gives you. A single load balancer, one public address, fans out to many in cluster services, based on the h-t-t-p host name and the request path.
+
+So one address can route, say, the ay-pee-eye host to the ay-pee-eye service, the main site's slash ay-pee-eye path to the ay-pee-eye service, everything else on the main site to the web service, and the shop host to the shop service. And it terminates tee-el-ess for all of them in one place. To put it simply, a service exposes one workload at layer four, while an ingress is a smart, shared, h-t-t-p front door for the whole cluster.

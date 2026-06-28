@@ -1,0 +1,11 @@
+Network policy, kubernetes' built in firewall.
+
+Out of the box, the cluster is open. Every pod can reach every other pod, in every namespace. That is deliberate. Orchestration comes first, and security policy is opt in. Network policy is that opt in.
+
+A network policy is a namespaced object that says, for the pods matching a selector, two things. On the ingress side, which sources are allowed to talk to them. And on the egress side, which destinations they are allowed to talk to.
+
+Let us read a typical one in plain language. It targets pods in the default namespace labelled app equals web. For ingress, it accepts tee-see-pee traffic on port eighty, but only from pods labelled role equals frontend in the same namespace, or from any pod in a particular gateway namespace. For egress, it allows those web pods to reach a postgres pod on its database port, and also to reach the cluster dee-en-ess pods on port fifty three, so name resolution still works.
+
+Notice the building blocks. A pod selector chooses which pods the rule allows. A namespace selector chooses whole namespaces. You can combine them, and you list the ports and protocols that are permitted.
+
+The mental model to hold is, a network policy is a per pod allow list. You declare exactly who may come in and where the pod may go out, expressed entirely in terms of labels, not eye-pee addresses. That label based approach is what makes it survive pods being rescheduled and getting new eye-pees. The policy still applies, because it is written against labels, which do not change.

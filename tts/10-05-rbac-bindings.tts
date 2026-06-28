@@ -1,0 +1,11 @@
+Are-back, bindings, subjects, and the can-i check.
+
+A role, or a cluster role, is just a set of permissions. It does not apply to anyone until you bind it to a subject. That is what bindings do.
+
+A role binding is namespaced. It binds a role, or a cluster role, to subjects within one namespace. A cluster role binding is cluster scoped. It binds a cluster role to subjects across the whole cluster.
+
+A binding has two parts. A list of subjects, and a role reference naming the role to grant. Each subject is one of three kinds. A user, with the username your authenticator returned. A service account, with a name and a namespace. Or a group, with a group name. Groups are powerful, because you can grant a whole class of identities at once.
+
+There is one especially useful trick, the role and cluster role crossover. A role binding can bind a cluster role, not just a role. When it does, the cluster role's permissions apply only within that binding's namespace. This is the standard way to reuse one well written cluster role across many namespaces, by creating a role binding to it in each one. You define the permissions once, and grant them namespace by namespace.
+
+And the single most useful command for working with are-back is the can-i check. You ask, kubectl auth can i, then a verb and a resource, and it tells you yes or no. You can even impersonate another subject to test their access, asking, can this service account get pods in this namespace. When access is not behaving as you expect, the can-i check is how you find out exactly what a subject is allowed to do, rather than guessing from the yaml.

@@ -1,0 +1,11 @@
+Troubleshooting, control plane failures.
+
+The classic symptom is that kubectl returns connection refused or a timeout. That means the ay-pee-eye server is not reachable. Either it is down, or your configuration points at the wrong place.
+
+From the control plane node, you run three checks. Use the cri tool to ask, is the ay-pee-eye server static pod actually running. Read the kube-let's logs through the journal, because the kube-let is what starts the static pods, and its logs say exactly why one failed to start. And list the manifests directory to confirm the manifest files are even still there.
+
+The common causes follow from that. A bad flag in a static pod manifest, because you edited the ay-pee-eye server manifest and broke it, and the kube-let logs will be explicit about the error. An expired certificate, which you check with the kube-ay-dee-m certificate expiration command. Or et-see-dee being down, since the ay-pee-eye server cannot start without it.
+
+A second classic symptom is pods stuck in container creating across the whole cluster. That is almost always the network plugin being broken. You check the plugin's pods in the kube system namespace, and read their logs to see why they are unhealthy.
+
+The mental model for control plane troubleshooting is to work from the outside in. Can I reach the ay-pee-eye server. If not, is its static pod running, and what do the kube-let logs say. Is et-see-dee healthy underneath it. And are the certificates valid. Because the control plane components run as static pods started by the kube-let, the kube-let's journal is very often where the real error message is waiting for you.

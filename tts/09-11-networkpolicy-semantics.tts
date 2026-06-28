@@ -1,0 +1,9 @@
+Network policy semantics, additive allow, default deny.
+
+There are three rules to internalize here, and they trip up almost everyone at first.
+
+Rule one. A pod is default deny only once some policy applies to it. If no network policy selects a pod, that pod's traffic is not restricted at all. The default cluster allow all stands. But the moment even one policy selects the pod, that pod becomes default deny for the directions the policy lists, and only the explicitly allowed traffic gets through. So a policy that selects a pod, declares the ingress direction, but lists no ingress rules, means deny all ingress for that pod. That empty policy is exactly how you write the default deny pattern.
+
+Rule two. Multiple policies are additive, a union. If two policies select the same pod, traffic is allowed if any of them allow it. There is no deny rule, no precedence, no override. The only question is, is at least one of my policies happy with this packet. If yes, it is allowed. That is why you build coverage from several narrow policies, a default deny, plus targeted allows for specific apps.
+
+Rule three. Enforcement is the network plugin's job. The ay-pee-eye server merely stores the network policy objects. The actual dropping and allowing of packets, the eye-pee-tables or ee-bee-pee-eff rules, is done by the plugin. And here is the gotcha. If your plugin does not support network policy, then your policies are silently ignored. They exist as objects, but nothing enforces them. So always confirm your chosen plugin actually implements network policy, otherwise you have a firewall that is not plugged in.

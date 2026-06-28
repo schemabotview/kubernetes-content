@@ -1,0 +1,13 @@
+Troubleshooting, networking failures.
+
+Take the most common case first. A service is unreachable from a pod. There is a clean three question flowchart.
+
+One. Does dee-en-ess resolve. From inside a test pod, do a name lookup of the service. If it fails, the problem is core-d-en-ess, or the pod's dee-en-ess policy.
+
+Two. Is the service backed by endpoints. Get the endpoints for the service. If it shows none, your selector is wrong or the pods are not ready. Describe the service to see the selector.
+
+Three. Can the pod reach the port. From a test pod, use netcat to probe the service and port. If that fails, you are looking at a network policy or a plugin issue.
+
+A few other patterns. If you hit a service but reach the wrong pod, you probably have two services with overlapping selectors, or session affinity that is wrong for your protocol. If external traffic is not reaching the cluster, check that a load balancer service has an external eye-pee, not pending, and that an ingress shows an address, which is empty when no controller is watching its ingress class.
+
+And a classic. My network policy is not blocking anything. Three usual causes. The wrong plugin, because some simple plugins do not enforce policy at all. No policy actually selects the pods, so they fall back to allow all. Or the policy's allow rules are simply too permissive. The unifying idea across all networking troubleshooting is to follow the packet's journey in order. Name, to endpoints, to port, to policy. Check each hop, and the one that fails tells you where the break is.

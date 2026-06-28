@@ -1,0 +1,15 @@
+Are-back, roles and cluster roles.
+
+Are-back, which stands for role based access control, is kubernetes' permission system. It answers the authorization question from the previous notebook. Can this subject perform this verb on this resource.
+
+There are two kinds of role object. They are identical in shape but different in scope. A role is namespaced. It grants permissions on resources within one namespace. A cluster role is cluster scoped. It grants permissions on cluster scoped resources like nodes and persistent volumes, on non resource paths like the health endpoint, and on resources in every namespace, when paired with a cluster role binding.
+
+A role or cluster role is built from rules, and each rule has three parts.
+
+The ay-pee-eye groups. The empty string means the core group, which holds pods, services, config maps, and namespaces. Other groups include apps for deployments, batch for jobs, the networking group for ingress and network policy, and the are-back group for roles and bindings themselves.
+
+The resources. The lowercase plural kind, like pods, deployments, or secrets. Sub resources use a slash, like pods slash log or pods slash exec.
+
+And the verbs. The actions allowed, like get, list, watch, create, update, patch, and delete.
+
+The single most important property of are-back is that it is purely additive and allow only. There is no deny rule. A subject starts with no permissions, and each binding only ever adds capabilities. If no rule grants an action, it is denied by default. So you design permissions by granting the minimum set of verbs on the minimum set of resources. That is least privilege, expressed directly in yaml.

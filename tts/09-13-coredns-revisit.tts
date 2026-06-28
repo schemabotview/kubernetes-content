@@ -1,0 +1,9 @@
+Core-d-en-ess revisited, customizing cluster dee-en-ess.
+
+You met core-d-en-ess in the services notebook. Every cluster ships it as a deployment in the kube system namespace, fronted by a service. The default configuration is fine for about ninety five percent of clusters. Let us look at the cases that warrant changing it.
+
+Core-d-en-ess is configured by a file, called the core file, which lives in a config map named coredns in the kube system namespace. You edit that config map to change behaviour. Each line in the core file is a plugin. The interesting ones are these. The kubernetes plugin, set to the cluster's local domain, is the source of all your service dee-en-ess, reading from the ay-pee-eye server. The forward plugin sends anything that is not a cluster name to the node's upstream resolver. The cache plugin caches positive answers for a short time. And the reload plugin reloads the core file when the config map changes, without restarting the pods.
+
+The most common customization is adding a custom domain. Say your pods need to reach an internal corporate hostname over a private domain. You add a new server block to the core file that says, for that domain, forward queries to a specific upstream resolver address. Now core-d-en-ess knows how to resolve those private names, while still handling cluster names and the public internet as before.
+
+Other reasons to customize include adding host entries, rewriting names, or tuning the cache. But the takeaway is simple. Cluster dee-en-ess is not a black box. It is core-d-en-ess, driven by a config map you can edit, and reloaded live when you change it.

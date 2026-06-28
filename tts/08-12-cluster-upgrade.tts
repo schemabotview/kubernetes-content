@@ -1,0 +1,9 @@
+Cluster upgrade with kube-ay-dee-m.
+
+You do not upgrade kubernetes by applying a manifest. You run kube-ay-dee-m upgrade on the nodes themselves. The exam may not ask you to do a full upgrade end to end, but it will ask you to describe the order and the version skew rules, so let us get those straight.
+
+The version skew rules are the compatibility guarantees. Kubectl can be within one minor version, either side, of the ay-pee-eye server. The ay-pee-eye server is always the highest version in the cluster. Everything else matches it or trails it. The controller manager and scheduler are the same minor as the ay-pee-eye server, or one older. The kube-let can be up to two minor versions older than the ay-pee-eye server. And kube proxy matches the kube-let on its node.
+
+The crucial consequence is this. Upgrade the control plane first, the kube-lets after. A newer ay-pee-eye server can talk to older kube-lets, but an older ay-pee-eye server cannot talk to a newer kube-let. So the control plane always leads.
+
+The upgrade order goes like this. On the first control plane node, upgrade the kube-ay-dee-m binary, run upgrade plan to see what is available, then run upgrade apply for the target version, which updates the control plane static pods. Then drain the node, upgrade its kube-let and kubectl, restart the kube-let, and uncordon the node. You repeat the upgrade for each additional control plane node, then move on to the workers, one at a time. Drain it, upgrade kube-ay-dee-m, run upgrade node, upgrade the kube-let, restart it, and uncordon. Draining first is what keeps the upgrade safe, moving workloads off each node before you touch it.

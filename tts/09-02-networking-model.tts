@@ -1,0 +1,13 @@
+The kubernetes networking model, four hard requirements.
+
+The kubernetes networking specification is a small set of axioms. Every cluster, from your laptop's kind, to a managed cloud cluster, to a two thousand node bare metal install, must satisfy all four.
+
+One. Every pod gets its own routable eye-pee. Not a nat-ted port mapping, not a shared address, but a real eye-pee that other pods on any node can dial directly. And the pod sees that same eye-pee from inside.
+
+Two. Pods can talk to all other pods without nat. Whether the other pod is on the same node or a different node, the source eye-pee is preserved end to end. From pod A's point of view, talking to pod B is identical no matter where B is running.
+
+Three. Nodes can talk to all pods, also without nat. This is what lets the kube-let's probes work, and what lets kubectl exec and kubectl port forward proxy through the ay-pee-eye server to a pod.
+
+Four. The eye-pee a pod sees for itself is the same eye-pee everyone else sees it as. There is no internal versus external address inside a pod.
+
+Together these are called the flat, or eye-pee per pod, model. Compared with the docker style world, where containers share the host's eye-pee and are exposed by nat, it is much easier to reason about, because every connection is simply eye-pee to eye-pee. It is also easier for service meshes and observability. The catch is that it is harder to implement, which is exactly why kubernetes does not implement it itself. It delegates the whole job to a network plugin.

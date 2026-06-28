@@ -1,0 +1,7 @@
+Cleaning up.
+
+Let us tidy the cluster for the final notebook. Delete the deployment, its service, and the ingress you created with kubectl delete. Then delete the demo namespace you used for network policy, which takes everything inside it along with it. Or, more broadly, delete every deployment, service, and ingress in the current namespace with the all flag, and remove the demo namespace.
+
+One thing worth noticing in this cleanup. An ingress, like a service, only routes. It does not own the pods behind it, so deleting it leaves your workloads running. And the network policies you created lived inside the demo namespace, so deleting that namespace removed them in one stroke.
+
+That is the recurring lesson of this whole networking chapter. The plumbing and the policy are separate, layered objects, sitting on top of the flat pod network. Services and ingress add routing. Network policies add a firewall. Core-d-en-ess adds names. Each is its own object, each is built from labels and selectors, and each can be added or removed without disturbing the pods underneath.

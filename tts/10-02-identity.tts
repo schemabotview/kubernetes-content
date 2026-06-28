@@ -1,0 +1,11 @@
+Identity in kubernetes, users versus service accounts.
+
+Two kinds of identity exist in a cluster, and they are easy to mix up.
+
+A user is for humans, and for things like continuous integration systems. A user is whatever the ay-pee-eye server figures out from your credentials. It might come from a client certificate, whose common name is the user and whose organization is a group. It might be an openid connect token. It might be a static token mapped to a username. Here is the surprising part. Users are not kubernetes objects. There is no command to create a user. The ay-pee-eye server does not store them. It only recognizes the identities your authenticator chain hands back. You add a user by issuing a new client certificate signed by the cluster authority, or by wiring up an identity provider.
+
+A service account, by contrast, is for pods. It is a real kubernetes object, living in the ay-pee-eye server, namespaced, with a name. A pod references a service account by name. The kube-let mounts a token for that account into the pod, and the pod uses that token to call the ay-pee-eye server.
+
+So the clean split is this. Service accounts are how workloads authenticate. Users are how people authenticate. And the beauty is that are-back applies to both with the exact same rules and the same subject syntax.
+
+One detail. Every namespace gets a default service account, and unless you say otherwise, your pods run as that default account. Best practice is to create a dedicated service account per workload, so you can grant each one only the permissions it actually needs.

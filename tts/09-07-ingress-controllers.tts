@@ -1,0 +1,9 @@
+Ingress controllers, the proxies that do the work.
+
+Here is a crucial distinction. The ingress object is just a piece of configuration sitting in the ay-pee-eye server. By itself it does nothing. You also need an ingress controller, an actual running proxy that reads ingress objects and implements the routing.
+
+Several controllers exist. They all read the same ingress format, but each implements it differently. The most deployed is ingress n-ginx, a community project that runs n-ginx and reloads it on change. Traefik is popular for development, with auto discovery and a nice dashboard. There are performance focused ones built on haproxy. On the clouds, there are controllers that provision a real cloud load balancer per ingress. And the service mesh flavoured ones are built on envoy.
+
+The rule is, you pick one ingress controller per cluster, install it, typically with helm, and then write ingress resources that target it.
+
+That targeting is done through the ingress class. A cluster can actually run more than one controller, say an internal only one and a public one. Each controller registers an ingress class resource. And each ingress picks its controller by setting the ingress class name field. So the flow is, install a controller, which registers a class, and then every ingress names the class it wants. Without a controller installed, your ingress objects are inert. They are a to do list with no one to carry it out. The controller is the worker that turns that list into a live, routing proxy.

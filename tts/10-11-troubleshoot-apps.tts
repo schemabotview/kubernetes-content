@@ -1,0 +1,9 @@
+Troubleshooting, application failures.
+
+About thirty percent of the exam is troubleshooting. They give you a broken cluster, and you fix it. The fastest path is to know the failure modes and the first command to run for each.
+
+Start with a pod stuck in pending. The command is describe pod, and the events section at the bottom is where the answer lives. Common reasons. Failed scheduling, meaning no node fits, and the reason will say why, insufficient see-pee-you or memory, an untolerated taint, or a node selector mismatch. Failed mount, meaning a claim is not binding or the volume is on the wrong node. And image pull back off, meaning the image does not exist or the pull secret is wrong.
+
+Next, a pod that is running but keeps restarting, which shows up as crash loop back off. Here the key command is logs, but with a twist. The current logs are often empty, because the container crashed too fast. So you ask for the previous container's logs, which is what actually crashed. Combine that with describe, to read the restart count and the last exit code. Common reasons. An application bug, usually visible in the logs. An out of memory kill, exit code one thirty seven, where the container exceeded its memory limit, which describe reports in the last state. A broken config map or secret reference. Or a failing readiness probe.
+
+The discipline to build is always the same three moves. Describe the object and read its events. Read the logs, including the previous container's logs. And if it lives long enough, exec in and look around. Those three commands answer the large majority of application failures, and the events section is almost always where the truth is hiding.

@@ -1,0 +1,11 @@
+Image security and the supply chain.
+
+The exam touches image security lightly, but production clusters care a great deal, so let us cover the essentials.
+
+First, trust the digest, not the tag. A tag, like n-ginx tag one point twenty seven, is a moving label. The registry can repoint it at any time. A digest, the sha two fifty six content hash, is an immutable fingerprint of exact bytes. So in production manifests, pin images by digest. Use tags in development for convenience. A related detail is the image pull policy. It defaults to always for the latest tag and for unset tags, contacting the registry on every pod start, and to if not present for specific tags. Pinning by digest gives you immutability without that per start latency.
+
+Second, private registries, a recap. You create a registry credential as a secret and reference it from the pod's image pull secrets, or attach it to the service account. The kube-let uses it when pulling. On cloud managed clusters, the node's own cloud identity can be granted registry access directly, so you need no pull secret at all.
+
+Third, image signing. Standards like sigstore, with its cosign tool, let you cryptographically sign images. At admission time, a policy tool can verify those signatures and reject any pod running an unsigned or untrusted image. That closes the gap between, this image is named correctly, and, this image is actually the one we built and approved.
+
+And fourth, vulnerability scanning, which sits mostly outside the cluster, in your build pipeline and registry, flagging known vulnerable packages before an image is ever deployed. The theme of supply chain security is simple. Know exactly what you are running, prove it has not been tampered with, and prove it is free of known holes.

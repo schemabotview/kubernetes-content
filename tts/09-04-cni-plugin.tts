@@ -1,0 +1,19 @@
+What a network plugin actually does, second by second.
+
+When the kube-let creates a pod, here is what happens on the networking side, step by step.
+
+First, the kube-let creates the pod's network namespace. The container runtime does the actual system call work, asked for over the container runtime interface. At this point the pod has its own empty network namespace, with nothing in it but a loopback.
+
+Second, the kube-let invokes the configured network plugin by running its binary, passing it the pod's namespace, the container id, and the plugin's configuration from disk.
+
+Third, the plugin allocates an eye-pee from the node's slice of the pod range, using an address management component.
+
+Fourth, the plugin creates a virtual ethernet pair, a tiny two ended cable. One end goes inside the pod's namespace, named eth zero. The other end stays on the host.
+
+Fifth, the plugin programs routes, on the host side, on the pod side, and possibly in the cluster's overlay or routing fabric, so the pod can now reach other pods and the outside world.
+
+Sixth, the plugin returns the assigned eye-pee to the kube-let, which records it in the pod's status.
+
+Then, a little later, kube proxy notices the pod has become ready and updates the service endpoints, and cluster dee-en-ess starts returning this pod's eye-pee for any matching selector. And finally the pod's containers start, already seeing eth zero configured with their eye-pee.
+
+The first six steps take milliseconds. The crucial idea is that kubernetes itself does almost none of this. It defines the interface, and the plugin you chose does the actual wiring. Swap the plugin, and the same pod gets networked a completely different way.

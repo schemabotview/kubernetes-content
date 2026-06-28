@@ -1,0 +1,19 @@
+Pod security context, running with the right user, permissions, and capabilities.
+
+By default, containers run as root inside their pod, with all the linux capabilities the runtime allows. Both of those are dangerous. The security context is your toolkit for hardening, and it can be set at the pod level, or per container, where the container level overrides the pod level.
+
+Let us go through the fields that matter.
+
+Run as user and run as group set the numeric user and group id the container's first process runs as. Numbers, not names, because the kernel only knows numbers.
+
+Run as non root, set to true, makes the container fail to start if it tries to run as user zero. It is the cheapest safety net there is. Use it.
+
+F-s group sets a group id applied to the files in the pod's mounted volumes, which is how a non root container can actually write to a volume.
+
+Allow privilege escalation, set to false, stops a process from gaining more privileges than its parent, closing the set user id trick. Combined with run as non root, the container cannot climb back to root.
+
+Read only root filesystem, set to true, mounts the container's root as read only. Anything that needs to write then needs an explicit writable volume, which forces you to be deliberate about where writes happen.
+
+And capabilities. The strong recommendation is to drop all capabilities, then add back only the specific ones you truly need, like the one that allows binding to low numbered ports.
+
+The mindset to take away is, start from nothing and add back the minimum. Non root, no escalation, read only root, all capabilities dropped. That baseline blocks the large majority of container breakout techniques.

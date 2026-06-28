@@ -1,0 +1,9 @@
+Pod eye-pees and pod ranges, where the addresses come from.
+
+A typical cluster has two address ranges, both separate from your wider network. The pod range is where pods get their eye-pees from. The service range is where service cluster eye-pees come from, which you met in the services notebook. They never overlap.
+
+The pod range is subdivided per node. Each node gets a slice of it, typically enough for a couple of hundred pods, and it allocates addresses for its own pods out of that slice. You can see a node's slice by inspecting the node object.
+
+Why slice it this way. Because it lets the cluster route by node. Any packet destined for node two's slice goes to node two. The network plugin's job is to publish those per node routes, whether by a routing protocol like bee-gee-pee, by wrapping packets in an overlay tunnel, or by some cloud native mechanism. Once those routes exist, a packet to any pod eye-pee knows which node to head for, and the node delivers it to the right pod.
+
+There is one everyday problem to watch for. The common default pod range overlaps with the address ranges that home routers and corporate networks also use. So if your laptop's cluster picks the same range as your office network or your v-p-n, traffic to those addresses gets confused about whether it means a pod or a machine on your real network. The fix is simply to choose a non overlapping pod range when you create the cluster. It is a five second decision at install time that saves a baffling debugging session later.

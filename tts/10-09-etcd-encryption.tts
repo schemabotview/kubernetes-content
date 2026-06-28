@@ -1,0 +1,9 @@
+Et-see-dee encryption at rest.
+
+Out of the box, secret data in et-see-dee is base sixty four encoded, but not encrypted. We flagged this in the config and secrets notebook. Anyone with read access to the et-see-dee data directory, a node attacker, or an old backup snapshot, can read every secret in plain text.
+
+The fix is an encryption configuration, read by the ay-pee-eye server, which encrypts specific resource types before writing them to et-see-dee. You list the resources to protect, typically secrets, and the providers to use. A real encryption provider, using a strong cipher with a key you supply, and a fallback identity provider, which means unencrypted. Then you point the ay-pee-eye server at this configuration file, in its static pod manifest.
+
+Provider ordering matters, and this is the part to understand. The first provider in the list is used for encrypting new writes. But all providers can decrypt reads. That ordering is what makes key rotation possible. To rotate a key, you first add the new key as the first provider and keep the old key second, then restart the ay-pee-eye server. Next, you re encrypt the existing data by reading all the secrets and writing them straight back, which rewrites each one with the new key. And finally, you remove the old key and restart again.
+
+There is one subtlety worth knowing. If the identity provider, the unencrypted one, is listed first, then nothing is actually encrypted, because the first provider is what encrypts. So when you turn encryption on, the real provider must come first, and identity, if present at all, must come last as a fallback for reading old data.

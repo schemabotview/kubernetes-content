@@ -1,0 +1,11 @@
+Exam strategy.
+
+The certified kubernetes administrator exam is two hours, fifteen to twenty hands on tasks, scored by automated test scripts. You get a browser terminal into a fleet of practice clusters, and you fix things.
+
+Start with the time budget. Read the whole question before you type. The context switch instruction at the top of each task, which sets your kubectl context, is mandatory, and missing it means you fix the wrong cluster and score zero. Skip and return on the hard ones. Each task is worth a fixed number of points, so spending thirty minutes on a small task while leaving a big one untouched is a losing trade. Mark it for later and move on. And save about ten minutes at the end to revisit the ones you skipped.
+
+Next, set up your shell, because the exam allows it. Alias k to kubectl. Make a variable for client dry run with output as yaml, so you can generate manifests fast. Make a variable for force delete. And turn on tab completion for both kubectl and your alias.
+
+The single most important muscle memory is this. Generate a manifest with kubectl run or kubectl create, using client dry run and output as yaml, redirect it into a file, edit the file, and apply it. Almost every, write a manifest, task is faster this way than typing yaml from scratch, and far harder to get wrong.
+
+And learn the imperative shortcuts cold. Run a pod, create a deployment with replicas, expose a deployment as a service, scale a deployment, create config maps, secrets, roles, and role bindings, all imperatively. Under time pressure, an imperative command, optionally piped through client dry run to produce a starting manifest, is your fastest path to points.

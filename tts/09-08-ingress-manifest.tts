@@ -1,0 +1,11 @@
+Anatomy of an ingress resource.
+
+Let us walk through a realistic ingress, field by field.
+
+It names an ingress class, to pick which controller handles it. It has a tee-el-ess section, where each entry binds a list of host names to a secret of the tee-el-ess type, the kind you created in the config and secrets notebook. The controller then serves h-t-t-p-s for those hosts, using the certificate in that secret. That is how tee-el-ess termination happens in one place, at the ingress.
+
+Then it has rules. Each rule matches a host header. So one rule might handle the main web host, and another the ay-pee-eye host. Within each host, there is a list of paths. Each path has a path value, a path type, and a backend that names a service and a port.
+
+The path type matters more than people expect. Prefix matches any request whose path starts with the given value, which is the common choice. Exact matches only that precise path. So a prefix of slash ay-pee-eye catches slash ay-pee-eye and everything beneath it, routing to the ay-pee-eye service, while a prefix of slash catches everything else, routing to the web service.
+
+One more thing to know about. Annotations. Because the core ingress object is fairly limited, controllers expose extra behaviour through annotations, controller specific magic strings, for things like rewriting the path or tuning timeouts. That reliance on annotations is exactly the weakness that the gateway ay-pee-eye, which we look at next, was designed to fix. But for everyday h-t-t-p routing, this host and path structure, plus a tee-el-ess block, is all you need.

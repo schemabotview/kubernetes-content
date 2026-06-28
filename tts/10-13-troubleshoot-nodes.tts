@@ -1,0 +1,13 @@
+Troubleshooting, worker node failures.
+
+Work through a node problem in steps.
+
+Step one, what does the cluster see. Get the nodes, and describe the troubled one. Read the conditions block. Five conditions matter. Ready, the overall health. Memory pressure, disk pressure, and pid pressure, which are the eviction triggers. And network unavailable, which means the network plugin has not configured the node. Then read the events block at the bottom for taints, evictions, and system out of memory kills.
+
+Step two, get onto the node and check the kube-let. Look at its service status, and read its recent journal logs. The kube-let logs every probe failure, every container start, and every eviction. Read backwards from now until you find the first complaint.
+
+Step three, check the container runtime. Use the cri tool to list running containers and cached images, check the runtime's service status, and read its logs. The cri tool is especially useful when the kube-let is down but you still want to see what is actually running.
+
+Step four, check disk. A very common culprit is broken log rotation quietly filling the disk, which then triggers disk pressure and evictions. Use the disk free command, and look at the sizes of the runtime, kube-let, and pod log directories.
+
+And step five, check the network on the node. Confirm the plugin's interface is present, confirm the pod range routes exist, confirm the kube proxy rules are installed, and read the network agent's own logs. The overall approach is a funnel. Start with what the cluster reports about the node, then drop down to the kube-let, the runtime, the disk, and finally the network, narrowing as you go.

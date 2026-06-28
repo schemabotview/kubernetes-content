@@ -1,0 +1,13 @@
+Network policy patterns, common recipes.
+
+A handful of policies cover about eighty percent of real world needs. These are worth memorizing.
+
+The first and most useful is default deny everything in a namespace. You write a policy that selects every pod, with an empty selector, and declares both the ingress and egress directions, but lists no rules. Apply that to a fresh namespace and nothing talks until you write an allow rule. It is the foundation you build on.
+
+The second, which is easy to forget, is allow dee-en-ess. Almost everything needs name resolution. But once you have default denied egress, you have cut off dee-en-ess too. So you must add it back, an egress rule allowing traffic to the cluster dee-en-ess pods in the kube system namespace, on port fifty three, over both you-dee-pee and tee-see-pee. Forget this, and your pods will fail in the most confusing way, unable to resolve any name.
+
+The third is allow only from the same namespace. An ingress rule with an empty pod selector means, anything in this namespace, which locks pods to accept traffic only from their siblings.
+
+The fourth is allow from a specific namespace. You use the well known label that the ay-pee-eye server automatically stamps on every namespace, its name, and select on that in a namespace selector.
+
+And a trickier one, allow egress only to a specific service. Since policies select on pod labels, not service eye-pees, the standard pattern is to select the backing pods of that service by their labels. The theme across all of these is the same. Start from default deny, then add the minimum set of narrow allows your app actually needs.

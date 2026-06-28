@@ -1,0 +1,9 @@
+The three communication paths.
+
+Once the cluster is networked, every connection a pod makes falls into one of three categories, and each is routed differently in the kernel.
+
+The first is pod to pod, the simplest case. Pod A wants to reach pod B by eye-pee. The packet leaves pod A's interface, crosses the virtual ethernet pair onto the host, and then one of two things happens. If pod B is on the same node, the host bridges straight to B's interface, with no overlay and no kube proxy involved. If pod B is on a different node, the host routes the packet according to the plugin's per node routes. In a plain routing setup that is a simple layer three hop. In an overlay setup the packet is wrapped, sent to the destination node, and unwrapped there. In both cases there is no nat, so pod B sees pod A's real source eye-pee.
+
+The second is pod to service. Pod A calls a service by name, which dee-en-ess resolves to the service's cluster eye-pee. The kernel sees a packet to that virtual address, and kube proxy's rules rewrite the destination to one of the backing pod eye-pees, chosen at random. The destination pod sees the request coming from the client pod's eye-pee, not from the service eye-pee, because the service eye-pee is purely virtual.
+
+The third is pod to external, out to the wider internet. The packet leaves the pod and hits the host, but the pod's source eye-pee is not routable on the public internet. So the host applies source nat, rewriting the source to the node's own address, so replies can find their way back. That is the one place in the model where nat does appear, on the way out to the world.

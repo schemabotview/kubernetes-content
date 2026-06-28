@@ -1,0 +1,11 @@
+Et-see-dee backup and restore, the exam's flag bearer skill.
+
+Lose et-see-dee, and you lose the cluster. The exam tests snapshot save and restore reliably, so learn this one cold.
+
+First, the backup. The et-see-dee command line tool is the client for et-see-dee. On a kube-ay-dee-m cluster you can exec into the et-see-dee static pod and run it there, since the binary is bundled in the image, or run it on the control plane node directly. Whichever way, it needs four pieces of authentication. The endpoint, which is the local et-see-dee address. The certificate authority file. A client certificate that et-see-dee trusts. And the matching private key. With those, you run snapshot save, pointing at an output file. The result is a single file. Move it off the node, and that is your backup.
+
+You should also verify a snapshot. There is a snapshot status command that shows the revision, the number of keys, and a hash. If the tool cannot read the file, the file is broken, so make another one before you trust it.
+
+Now the restore, the classic exam scenario. The cluster is broken, here is a snapshot, bring it back. You run snapshot restore, which writes the snapshot's contents into a fresh data directory, a new directory, not the live one. Then you point et-see-dee at that restored directory. On a static pod cluster, that means editing the et-see-dee manifest so its data directory and its mounted volume reference the restored path, which makes the kube-let restart et-see-dee against the recovered data.
+
+The discipline to remember is, restore into a new directory, then repoint et-see-dee at it. Never restore on top of the live data directory while et-see-dee is running.

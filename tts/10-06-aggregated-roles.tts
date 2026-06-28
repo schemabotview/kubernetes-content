@@ -1,0 +1,11 @@
+Aggregated and default roles.
+
+Kubernetes ships several cluster roles you can rely on by name, so you do not have to write everything from scratch. The big four are these.
+
+Cluster admin grants everything, everywhere. It is the root role. Hand it out very sparingly. Admin grants full control of a namespace's resources, but cannot modify the namespace itself or its quotas, and it is granted through a role binding. Edit grants read write on workloads like pods, deployments, services, config maps, and secrets, but cannot manage are-back. And view grants read only on most workloads, excluding secrets.
+
+These appear in every cluster, and the standard pattern is to bind one of them to a group. For example, give a team's admin group the admin cluster role within their own namespace, with a single role binding. That covers most day to day access control without writing a custom role at all.
+
+There is also a clever composition mechanism called aggregation. A cluster role can be defined as the union of other cluster roles, selected by labels. The built in view, edit, and admin roles are themselves aggregated. So you can extend them. If you create a new cluster role and give it the label that says, aggregate to view, then its rules are automatically folded into the view role everywhere.
+
+That is how add ons grant their own permissions cleanly. A monitoring tool ships a small cluster role labelled to aggregate into view, and suddenly anyone with view can also read that tool's resources, without anyone editing the built in roles. It is least privilege that composes, rather than a single role that grows forever.
