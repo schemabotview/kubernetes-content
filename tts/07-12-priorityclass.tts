@@ -1,0 +1,11 @@
+Priority class and preemption, when high priority pods kick others out.
+
+By default, a pending pod waits politely until capacity becomes available. A priority class lets you tag a workload as important enough that lower priority pods should be kicked out to make room.
+
+A priority class is a cluster scoped object with a numeric value. The higher the number, the more important. You then reference it from a pod by its priority class name.
+
+Here is the preemption behaviour. When a pending pod with a high priority class cannot find a node, the scheduler asks, is there a node where evicting some lower priority pods would make this one fit. If so, it evicts them and schedules the high priority pod. The evicted pods go back to pending and are rescheduled, if their controller still wants them.
+
+Two priority classes ship with every cluster, both with very high values, one for cluster wide critical workloads like core-d-en-ess and the metrics server, and one for node critical workloads like kube proxy and the networking agents. Do not borrow those values for your applications. Define your own, much lower, for example a higher number for elevated work and a small number for background work.
+
+And there is a softer option, a preemption policy of never. A pod with that policy still respects its priority for queue order, so the scheduler considers it before lower priority pending pods, but it will not preempt anyone. That is ideal for batch work that should run when there is spare capacity, but should never kick interactive workloads off their nodes. So priority controls both who jumps the queue, and who, if anyone, gets displaced to make room.

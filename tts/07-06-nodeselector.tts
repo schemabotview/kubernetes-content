@@ -1,0 +1,9 @@
+Node selector, the simplest pin.
+
+A node selector is a map of labels that must all match a node's labels for the pod to be schedulable there. So a pod with a node selector of disk type equals solid state, and gpu equals true, will only schedule on a node that carries both of those labels.
+
+Where do node labels come from. Two places. The admin sets them by hand, for example labelling a particular worker as having solid state disks. And the kube-let sets a few automatically when the node registers, including the hostname, the operating system, the architecture, and the zone and region. You can rely on those built in ones being present.
+
+When is a node selector the right tool. When the rule is simply, this pod needs a node that has some property. It is a hard requirement, plain equality, with no alternatives. For anything more expressive, set based selectors, preferred but not required, or, avoid this kind of node, you reach for node affinity, which we cover next.
+
+There is also a bigger hammer, the node name field. If you put a literal node name directly on a pod, it bypasses the scheduler entirely. The kube-let on that node either runs the pod, if it can, or rejects it. That is used for static pod style cases, and almost never in normal manifests, because it throws away everything the scheduler does for you. So reach for the node selector for a gentle hint about which kind of node, and leave the node name field for special situations.

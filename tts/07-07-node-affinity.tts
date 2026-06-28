@@ -1,0 +1,13 @@
+Node affinity, richer placement against node labels.
+
+Node affinity is the grown up version of the node selector. It comes in two flavours, and the names are a mouthful, so let us decode them.
+
+The first is required during scheduling, ignored during execution. That is a hard requirement, like a node selector but with the full set based selector language. The pod will not schedule unless it matches.
+
+The second is preferred during scheduling, ignored during execution. That is a soft preference, with a weight. The scheduler tries to honour it, but will pick a non matching node if it has to.
+
+So you might say, this pod must land in one of these two zones, and on a node that has a gpu label of any value. And separately, prefer a particular instance type if one is available. The musts are the required block, the nice to haves are the preferred block, each with a weight.
+
+The operators are the same set based language you met with labels. In, not in, exists, and does not exist. Node affinity adds two more, greater than and less than, which work on integer valued labels. Those two are the only thing beyond what plain labels can express.
+
+Now, about that, ignored during execution, suffix. It means the rule is only checked when the pod is being scheduled. If a node's labels later change so the rule no longer holds, the already running pod is left alone, not evicted. There is a planned variant that would also enforce the rule during execution, but in practice today, affinity is a placement time decision. To put it another way, node affinity decides where a pod is born, not where it is allowed to keep living.

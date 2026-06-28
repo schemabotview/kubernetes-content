@@ -16,21 +16,10 @@
       "defaultScene": "kubernetes",
       "sections": [
         {
-          "heading": "What's covered",
-          "scene": "kubernetes",
-          "spine": true,
-          "role": "hook"
-        },
-        {
           "heading": "What is Kubernetes?",
           "scene": "kubernetes",
           "spine": true,
-          "highlight": [
-            "k8s-cluster"
-          ],
-          "focus": [
-            "k8s-cluster"
-          ],
+          "role": "hook",
           "audio": "audio/01-02-what-is-kubernetes.wav"
         },
         {
@@ -191,22 +180,10 @@
       "defaultScene": "kubernetes",
       "sections": [
         {
-          "heading": "What's covered",
-          "scene": "kubernetes",
-          "spine": true,
-          "role": "hook"
-        },
-        {
           "heading": "The Kubernetes object model",
           "scene": "kubernetes",
           "spine": true,
-          "highlight": [
-            "k8s-apiserver",
-            "k8s-etcd"
-          ],
-          "focus": [
-            "k8s-control-plane"
-          ],
+          "role": "hook",
           "audio": "audio/02-02-object-model.wav"
         },
         {
@@ -347,21 +324,10 @@
       "defaultScene": "kubernetes",
       "sections": [
         {
-          "heading": "What's covered",
-          "scene": "kubernetes",
-          "spine": true,
-          "role": "hook"
-        },
-        {
           "heading": "Why bare pods aren't enough",
           "scene": "kubernetes",
           "spine": true,
-          "highlight": [
-            "k8s-pods"
-          ],
-          "focus": [
-            "k8s-worker"
-          ],
+          "role": "hook",
           "audio": "audio/03-02-why-controllers.wav"
         },
         {
@@ -483,22 +449,10 @@
       "defaultScene": "kubernetes",
       "sections": [
         {
-          "heading": "What's covered",
-          "scene": "kubernetes",
-          "spine": true,
-          "role": "hook"
-        },
-        {
           "heading": "Why Services exist",
           "scene": "kubernetes",
           "spine": true,
-          "highlight": [
-            "k8s-pods",
-            "k8s-service"
-          ],
-          "focus": [
-            "k8s-networking"
-          ],
+          "role": "hook",
           "audio": "audio/04-02-why-services.wav"
         },
         {
@@ -629,22 +583,10 @@
       "defaultScene": "kubernetes",
       "sections": [
         {
-          "heading": "What's covered",
-          "scene": "kubernetes",
-          "spine": true,
-          "role": "hook"
-        },
-        {
           "heading": "The configuration problem",
           "scene": "kubernetes",
           "spine": true,
-          "highlight": [
-            "k8s-configmap",
-            "k8s-secret"
-          ],
-          "focus": [
-            "k8s-config"
-          ],
+          "role": "hook",
           "audio": "audio/05-02-config-problem.wav"
         },
         {
@@ -787,21 +729,10 @@
       "defaultScene": "kubernetes",
       "sections": [
         {
-          "heading": "What's covered",
-          "scene": "kubernetes",
-          "spine": true,
-          "role": "hook"
-        },
-        {
           "heading": "Why storage matters — the container filesystem is ephemeral",
           "scene": "kubernetes",
           "spine": true,
-          "highlight": [
-            "k8s-pods"
-          ],
-          "focus": [
-            "k8s-worker"
-          ],
+          "role": "hook",
           "audio": "audio/06-02-why-storage.wav"
         },
         {
@@ -934,21 +865,10 @@
       "defaultScene": "kubernetes",
       "sections": [
         {
-          "heading": "What's covered",
-          "scene": "kubernetes",
-          "spine": true,
-          "role": "hook"
-        },
-        {
           "heading": "The scheduling problem — what `kube-scheduler` does",
           "scene": "kubernetes",
           "spine": true,
-          "highlight": [
-            "k8s-scheduler"
-          ],
-          "focus": [
-            "k8s-scheduling"
-          ],
+          "role": "hook",
           "audio": "audio/07-02-scheduling-problem.wav"
         },
         {
@@ -1103,21 +1023,10 @@
       "defaultScene": "kubernetes",
       "sections": [
         {
-          "heading": "What's covered",
-          "scene": "kubernetes",
-          "spine": true,
-          "role": "hook"
-        },
-        {
           "heading": "The control plane in one diagram",
           "scene": "kubernetes",
           "spine": true,
-          "highlight": [
-            "k8s-control-plane"
-          ],
-          "focus": [
-            "k8s-control-plane"
-          ],
+          "role": "hook",
           "audio": "audio/08-02-control-plane-overview.wav"
         },
         {
@@ -1261,22 +1170,10 @@
       "defaultScene": "kubernetes",
       "sections": [
         {
-          "heading": "What's covered",
-          "scene": "kubernetes",
-          "spine": true,
-          "role": "hook"
-        },
-        {
           "heading": "The Kubernetes networking model — four hard requirements",
           "scene": "kubernetes",
           "spine": true,
-          "highlight": [
-            "k8s-networking",
-            "k8s-pods"
-          ],
-          "focus": [
-            "k8s-networking"
-          ],
+          "role": "hook",
           "audio": "audio/09-02-networking-model.wav"
         },
         {
@@ -1431,22 +1328,10 @@
       "defaultScene": "kubernetes",
       "sections": [
         {
-          "heading": "What's covered",
-          "scene": "kubernetes",
-          "spine": true,
-          "role": "hook"
-        },
-        {
           "heading": "Identity in Kubernetes — Users vs ServiceAccounts",
           "scene": "kubernetes",
           "spine": true,
-          "highlight": [
-            "k8s-sa",
-            "k8s-apiserver"
-          ],
-          "focus": [
-            "k8s-rbac"
-          ],
+          "role": "hook",
           "audio": "audio/10-02-identity.wav"
         },
         {

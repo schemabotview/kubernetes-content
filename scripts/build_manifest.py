@@ -33,8 +33,7 @@ H = True  # spine
 L = False
 MODULES = [
     ("01-getting-started", "Getting Started with Kubernetes", "01-getting-started-with-kubernetes", [
-        ("whats-covered", H, "hook", [], []),
-        ("what-is-kubernetes", H, None, ["k8s-cluster"], ["k8s-cluster"]),
+        ("what-is-kubernetes", H, "hook", [], []),
         ("orchestration-problem", H, None, ["k8s-scheduler", "k8s-controllers"], ["k8s-control-plane"]),
         ("cluster-overview", H, None, ["k8s-control-plane", "k8s-worker"], ["k8s-cluster"]),
         ("the-pod", H, None, ["k8s-pods"], ["k8s-worker"]),
@@ -49,8 +48,7 @@ MODULES = [
         ("cleaning-up", L, None, [], []),
     ]),
     ("02-pods-object-model", "Pods, Labels & the Object Model", "02-pods-labels-and-the-object-model", [
-        ("whats-covered", H, "hook", [], []),
-        ("object-model", H, None, ["k8s-apiserver", "k8s-etcd"], ["k8s-control-plane"]),
+        ("object-model", H, "hook", [], []),
         ("pod-manifest", H, None, ["k8s-pod-kind", "k8s-pod-containers"], ["k8s-pod-kind"]),
         ("pod-phases", L, None, ["k8s-pods"], ["k8s-worker"]),
         ("restart-policy", L, None, ["k8s-pods"], ["k8s-worker"]),
@@ -64,8 +62,7 @@ MODULES = [
         ("cleaning-up", L, None, [], []),
     ]),
     ("03-deployments", "Deployments, ReplicaSets & Rollouts", "03-deployments-replicasets-and-rollouts", [
-        ("whats-covered", H, "hook", [], []),
-        ("why-controllers", H, None, ["k8s-pods"], ["k8s-worker"]),
+        ("why-controllers", H, "hook", [], []),
         ("replicaset", H, None, ["k8s-replicaset"], ["k8s-workload-kinds"]),
         ("replicaset-vs-deployment", L, None, ["k8s-deployment", "k8s-replicaset"], ["k8s-workload-kinds"]),
         ("deployment-manifest", H, None, ["k8s-deployment"], ["k8s-workload-kinds"]),
@@ -77,8 +74,7 @@ MODULES = [
         ("cleaning-up", L, None, [], []),
     ]),
     ("04-services-dns", "Services, DNS & Service Discovery", "04-services-dns-and-service-discovery", [
-        ("whats-covered", H, "hook", [], []),
-        ("why-services", H, None, ["k8s-pods", "k8s-service"], ["k8s-networking"]),
+        ("why-services", H, "hook", [], []),
         ("service-abstraction", H, None, ["k8s-service"], ["k8s-networking"]),
         ("service-ports", L, None, ["k8s-service"], ["k8s-networking"]),
         ("endpoints", L, None, ["k8s-service", "k8s-pods"], ["k8s-networking"]),
@@ -91,8 +87,7 @@ MODULES = [
         ("cleaning-up", L, None, [], []),
     ]),
     ("05-config-secrets", "ConfigMaps, Secrets & Environment", "05-configmaps-secrets-and-environment", [
-        ("whats-covered", H, "hook", [], []),
-        ("config-problem", H, None, ["k8s-configmap", "k8s-secret"], ["k8s-config"]),
+        ("config-problem", H, "hook", [], []),
         ("configmap", H, None, ["k8s-configmap"], ["k8s-config"]),
         ("consume-configmap", H, None, ["k8s-configmap", "k8s-cfg-env"], ["k8s-config"]),
         ("update-propagation", L, None, ["k8s-cfg-env"], ["k8s-config"]),
@@ -106,8 +101,7 @@ MODULES = [
         ("cleaning-up", L, None, [], []),
     ]),
     ("06-storage", "Storage: Volumes, PVs & PVCs", "06-storage-volumes-pvs-and-pvcs", [
-        ("whats-covered", H, "hook", [], []),
-        ("why-storage", H, None, ["k8s-pods"], ["k8s-worker"]),
+        ("why-storage", H, "hook", [], []),
         ("volumes", H, None, ["k8s-storage"], ["k8s-storage"]),
         ("ephemeral-volumes", L, None, ["k8s-storage"], ["k8s-storage"]),
         ("persistent-storage", H, None, ["k8s-pv", "k8s-pvc", "k8s-sc"], ["k8s-storage"]),
@@ -120,8 +114,7 @@ MODULES = [
         ("cleaning-up", L, None, [], []),
     ]),
     ("07-scheduling", "Scheduling: Resources, Affinity, Taints & Tolerations", "07-scheduling-resources-affinity-taints-tolerations", [
-        ("whats-covered", H, "hook", [], []),
-        ("scheduling-problem", H, None, ["k8s-scheduler"], ["k8s-scheduling"]),
+        ("scheduling-problem", H, "hook", [], []),
         ("requests-limits", H, None, ["k8s-requests", "k8s-limits"], ["k8s-scheduling"]),
         ("qos-classes", L, None, ["k8s-requests", "k8s-limits"], ["k8s-scheduling"]),
         ("limitrange-quota", L, None, ["k8s-requests", "k8s-limits"], ["k8s-scheduling"]),
@@ -136,8 +129,7 @@ MODULES = [
         ("cleaning-up", L, None, [], []),
     ]),
     ("08-cluster-architecture", "Cluster Architecture & kubeadm", "08-cluster-architecture-and-kubeadm", [
-        ("whats-covered", H, "hook", [], []),
-        ("control-plane-overview", H, None, ["k8s-control-plane"], ["k8s-control-plane"]),
+        ("control-plane-overview", H, "hook", [], []),
         ("etcd", H, None, ["k8s-etcd"], ["k8s-control-plane"]),
         ("apiserver", H, None, ["k8s-apiserver"], ["k8s-control-plane"]),
         ("scheduler-controllers", H, None, ["k8s-scheduler", "k8s-controllers"], ["k8s-control-plane"]),
@@ -151,8 +143,7 @@ MODULES = [
         ("what-to-practise", L, None, [], []),
     ]),
     ("09-networking", "Networking, Ingress & Network Policies", "09-networking-ingress-and-network-policies", [
-        ("whats-covered", H, "hook", [], []),
-        ("networking-model", H, None, ["k8s-networking", "k8s-pods"], ["k8s-networking"]),
+        ("networking-model", H, "hook", [], []),
         ("pod-ips", L, None, ["k8s-pods"], ["k8s-worker"]),
         ("cni-plugin", H, None, ["k8s-kubelet", "k8s-pods"], ["k8s-worker"]),
         ("communication-paths", H, None, ["k8s-service", "k8s-pods"], ["k8s-networking"]),
@@ -167,8 +158,7 @@ MODULES = [
         ("cleaning-up", L, None, [], []),
     ]),
     ("10-rbac-security", "RBAC, Security, Troubleshooting & CKA Prep", "10-rbac-security-troubleshooting-and-cka-prep", [
-        ("whats-covered", H, "hook", [], []),
-        ("identity", H, None, ["k8s-sa", "k8s-apiserver"], ["k8s-rbac"]),
+        ("identity", H, "hook", [], []),
         ("serviceaccounts", H, None, ["k8s-sa"], ["k8s-rbac"]),
         ("rbac-roles", H, None, ["k8s-role", "k8s-crole"], ["k8s-rbac"]),
         ("rbac-bindings", H, None, ["k8s-rb", "k8s-crb", "k8s-subject"], ["k8s-rbac"]),
@@ -186,9 +176,10 @@ MODULES = [
     ]),
 ]
 
-# Intro / course-recap outro slugs get NO narration (.tts/audio) — they stay as
-# pages but are silent. Every other section, including "Cleaning up", is narrated.
-NO_AUDIO = {"whats-covered", "what-to-practise", "course-end"}
+# Course-recap outro slugs get NO narration (.tts/audio) — they stay as pages but
+# are silent. Every other section, including "Cleaning up", is narrated. (The old
+# per-notebook "What's covered" intro was removed entirely — notebook + manifest.)
+NO_AUDIO = {"what-to-practise", "course-end"}
 
 presentations = []
 for idx, (mid, title, stem, meta) in enumerate(MODULES, start=1):
@@ -198,7 +189,10 @@ for idx, (mid, title, stem, meta) in enumerate(MODULES, start=1):
     )
     nn = f"{idx:02d}"
     sections = []
-    for mm, (heading, (slug, spine, role, hl, focus)) in enumerate(zip(nb_headings, meta), start=1):
+    # Numbering starts at 2: section 01 was the old "What's covered" intro (now
+    # removed), so the first real section keeps its original NN-02 audio slug —
+    # preserving every existing tts/ + audio/ filename.
+    for mm, (heading, (slug, spine, role, hl, focus)) in enumerate(zip(nb_headings, meta), start=2):
         sec = {"heading": heading, "scene": "kubernetes", "spine": spine}
         if role:
             sec["role"] = role

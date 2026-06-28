@@ -1,0 +1,11 @@
+Pod affinity and anti affinity, placement relative to other pods.
+
+Node selector and node affinity match against node labels. Pod affinity is different. It matches against other pods' labels. The rule becomes, schedule me near, or away from, pods like this.
+
+The classic example is pod anti affinity. You say, do not schedule me onto a node that already has a pod labelled app equals web. For a deployment of three replicas with that anti affinity, the result is one pod per node, which is the canonical way to spread replicas across hostnames so a single node failure cannot take them all out.
+
+The topology key is the whole game here. It names a node label that defines what counts as a topology domain. The most common values are the hostname label, where each node is its own domain, meaning spread across machines. The zone label, where each availability zone is one domain, meaning spread across zones. And the region label, for multi region clusters.
+
+So pod affinity says, schedule me in the same topology domain as a matching pod, which is useful for co locating things that talk to each other a lot. And pod anti affinity says, schedule me in a different topology domain from a matching pod, which is how you spread for resilience.
+
+Like node affinity, both come in required and preferred flavours. And here is a practical tip. For spreading replicas, prefer the preferred kind rather than the required kind. With required anti affinity, if you ask for more replicas than you have nodes, the extra pods can never schedule and sit pending forever. The preferred kind spreads when it can and still places the pod when it cannot.

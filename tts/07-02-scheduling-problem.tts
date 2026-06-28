@@ -1,0 +1,9 @@
+The scheduling problem, what the kube scheduler does.
+
+When you apply a deployment, the deployment controller creates a replica set, the replica set controller creates pods, and the ay-pee-eye server writes them to et-see-dee, but with the node name left empty. At this point the pods are pending. No node has been chosen yet.
+
+The kube scheduler picks up there, and it runs a tight loop. First, it watches the ay-pee-eye server for pods that have no node name set. Then, for each such pod, it filters the cluster's nodes, keeping only those that could actually run this pod. Enough free see-pee-you and memory, taints satisfied, node selectors satisfied, the right volumes available in the right zone, and so on. Next, it scores the remaining nodes, assigning each a number that reflects how good a fit it is. Then it picks the highest scoring node and binds the pod to it, by writing the node name back through the ay-pee-eye server. And finally, the kube-let on that node notices that a pod's node name matches its own, pulls the image, and starts the container.
+
+So the mental model is, filter, then score, then bind. Filtering is a hard yes or no question, can this node run the pod at all. Scoring is a soft question, of the nodes that can, which is best. And binding is just recording the decision.
+
+Notice that the scheduler never runs a container itself. It only makes a decision and writes it down. The kube-let does the actual work. That separation, the scheduler decides and the kube-let executes, is the same control plane versus node split we have seen throughout the course.

@@ -1,0 +1,7 @@
+Cleaning up.
+
+Let us tidy the cluster for the next notebook. Delete the demo pods and the spread deployment you created with kubectl delete. Then undo the changes you made to the node itself, removing the label you added and removing the taint you applied. Or, more broadly, delete every pod and deployment in the current namespace with the all flag.
+
+One thing is worth calling out here. Labels and taints live on the node, not on your pods, so deleting your workloads does not remove them. You have to take them off the node explicitly. That is why the cleanup includes both halves, deleting the pods, and then un labelling and un tainting the node.
+
+It is a small reminder of the big theme of this chapter. Scheduling is a negotiation between two sides. The pod, with its requests, selectors, affinities, and tolerations, and the node, with its capacity, labels, and taints. Tidy up both sides, and you leave the cluster exactly as you found it for the next lesson.

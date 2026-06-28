@@ -1,0 +1,11 @@
+How the scheduler decides, filter, score, and profiles.
+
+We opened the notebook with the scheduler's loop, filter, score, bind. Now the detail of how it actually does it.
+
+Filtering is done by a series of filter plugins, each returning a yes or no for each node. A node has to pass all of them to remain a candidate. The standard set includes, does the pod's requests fit in the node's free capacity, are the node selector and required node affinity satisfied, do host ports not conflict, are the topology spread constraints honoured, are the node's taints tolerated, and are the bound volumes available in the node's zone. Any single no removes the node from consideration.
+
+Scoring is done by a series of score plugins, each assigning a number from zero to a hundred to the surviving nodes. The scheduler sums the weighted scores and the highest wins. The standard plugins include, prefer nodes whose see-pee-you and memory utilization are balanced, a packing strategy that by default spreads pods to lightly loaded nodes but can be flipped to bin pack tightly, the soft affinity preferences, a preference for nodes that already have the image cached, and a preference for nodes with fewer prefer no schedule taints.
+
+And then there are scheduling profiles. A cluster's scheduler runs one or more named profiles, each a configuration of which plugins are enabled and how they are weighted. The default profile is simply called the default scheduler. You can run an alternate profile, or even an entirely separate custom scheduler, and tell a specific pod to use it by naming the scheduler in its spec.
+
+The takeaway is that scheduling is not a black box. It is a transparent pipeline of pluggable filters and scorers, and you can read, tune, or replace any stage of it.

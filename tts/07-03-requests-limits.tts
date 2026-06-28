@@ -1,0 +1,13 @@
+Resource requests and limits.
+
+Every container can declare what it expects from the node. There are two fields, both optional, both per container. Requests and limits, each for see-pee-you and memory.
+
+Let us be precise about what each one means.
+
+A request is the minimum amount of a resource the scheduler must reserve on the chosen node. When the scheduler filters nodes, it sums the requests of every pod already on a node and subtracts that from the node's capacity. A pod can only land on a node if its requests fit in the remaining headroom. Crucially, a request is not a runtime cap. A container that requests a quarter of a see-pee-you can use more at runtime if the node has it free. The request is purely a scheduling input.
+
+A limit is the maximum amount of a resource the runtime will actually let the container use. It is enforced by the kernel's see-group. And the two resources behave very differently when a container hits its limit. With a see-pee-you limit, the container is throttled. No restart, it just runs slower. With a memory limit, if the container tries to allocate beyond it, the kernel kills the offending process. We call that an out of memory kill, and the container then restarts, subject to its restart policy.
+
+A word on units. For see-pee-you, the value one means one whole core, and you can ask for fractions in milli-cores, so five hundred milli-cores is half a core. For memory, you use binary suffixes like mebibytes and gibibytes.
+
+So requests are about getting scheduled, and limits are about being contained at runtime. Set requests so the scheduler can place you sensibly, and set limits so one container cannot starve its neighbours.

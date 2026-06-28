@@ -1,0 +1,13 @@
+Topology spread constraints, even distribution as a first class field.
+
+Pod anti affinity can spread replicas across hostnames or zones, but at scale it gets hard to read, and the scheduler can struggle with it. Topology spread constraints are a more direct way to say, spread evenly across this topology, with this much slack.
+
+The central field is max skew. It is the maximum allowed imbalance, the count of matching pods in any one topology domain may differ from the count in any other by at most that number. A max skew of one is the tightest and most common setting. It means, keep the domains within one pod of each other.
+
+You pair max skew with a topology key, the same node label idea as before, naming whether you are spreading across hostnames, zones, or regions. And you pair it with a label selector that says which pods to count.
+
+There is also a, when unsatisfiable, field, which plays the role of required versus preferred. Do not schedule means, if the constraint cannot be honoured, the pod stays pending. Schedule anyway means, if it cannot be honoured, place the pod somewhere regardless, but still prefer balanced placement.
+
+One nice detail. A cluster's scheduling configuration may ship default spread constraints, typically spreading across hostnames and zones with, schedule anyway. That is why managed clusters often spread your replicas across zones for free, without you writing anything.
+
+So when do you use spread versus anti affinity. Reach for topology spread constraints when you want even, balanced distribution with a tunable tolerance. Reach for anti affinity when the rule is more of a hard, never co locate these, statement. Spread is about balance, anti affinity is about separation.

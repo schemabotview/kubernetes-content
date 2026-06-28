@@ -1,0 +1,11 @@
+Limit range and resource quota, namespace governance.
+
+Once you have more than one team sharing a cluster, you do not want a best effort pod with no limits hogging a whole node, or a careless test accidentally requesting a hundred see-pee-you cores. Two cluster admin objects govern that, both namespace scoped.
+
+The first is a limit range. It does two things. It supplies defaults, so when a pod is created without requests or limits, the ay-pee-eye server fills them in from the limit range. And it sets caps, rejecting pods whose values fall outside an allowed minimum and maximum. So after applying a limit range to a namespace, every container created there without limits gets sensible defaults, and anything asking for more than the maximum is rejected at creation time.
+
+The second is a resource quota. Where a limit range governs each individual object, a resource quota caps the sum across the whole namespace. The total requested see-pee-you, the total memory, the total limits, and even the counts of objects, like how many pods or services the namespace may contain.
+
+There is an important interaction between the two. If a resource quota in a namespace caps total requests or limits, then every pod must declare those values, otherwise the quota cannot account for it. That is exactly where a limit range earns its keep, by supplying defaults so that ordinary pods satisfy the quota without every author having to spell out resources by hand.
+
+Together they are how a platform team turns a shared cluster into fair, bounded slices, one namespace per team, each with its own budget and its own sensible defaults.

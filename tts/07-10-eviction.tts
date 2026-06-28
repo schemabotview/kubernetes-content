@@ -1,0 +1,9 @@
+Eviction, what happens when nodes get squeezed.
+
+We have touched eviction in passing. Let us pull it together. There are really two kinds.
+
+The first is node pressure eviction. The kube-let monitors a set of signals, available memory, available disk on the root and image filesystems, and the inode count, against configured thresholds. When a threshold is crossed, it evicts pods to relieve the pressure. The order is the quality of service order we saw. Best effort pods first. Then burstable pods that are over their requests, sorted by how far over they are. And guaranteed pods only as a last resort. Within each tier, it picks the pods using the most of the pressed resource.
+
+The second is ay-pee-eye initiated eviction. The main example is kubectl drain, which gracefully evicts every non daemon set pod off a node, used before maintenance. Internally it calls the eviction ay-pee-eye, which respects pod disruption budgets. Contrast that with kubectl delete pod, which is not an eviction at all. It is a direct delete, and it does not respect disruption budgets.
+
+That brings us to the pod disruption budget. It caps how many pods of a workload can be voluntarily disrupted at once. You express it as either a minimum available count or a maximum unavailable count, with a selector that matches the workload's pods. When you drain a node, the eviction ay-pee-eye refuses to evict a pod if doing so would push the workload below its minimum available. So a disruption budget is your guard rail. It lets a drain proceed safely, one pod at a time, without ever dropping below the availability you declared you need.

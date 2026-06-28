@@ -1,0 +1,11 @@
+Quality of service classes, guaranteed, burstable, and best effort.
+
+Kubernetes assigns each pod a quality of service class based on its resource settings. You do not set the class directly. The ay-pee-eye server computes it. And the class matters when a node runs low on memory and has to evict something.
+
+There are three classes. A pod is guaranteed when every container has both requests and limits set, for both see-pee-you and memory, with the request equal to the limit for each. A pod is burstable when at least one container has some request or limit, but it does not meet the strict guaranteed criteria. That is the eighty percent case. And a pod is best effort when no container has any requests or limits at all.
+
+Why does this matter. When the kube-let detects memory pressure, it evicts pods in a specific order. Best effort pods first. Then burstable pods, prioritizing those using memory above their requests. And guaranteed pods last, only if there is literally no other choice.
+
+So the cheapest insurance against eviction is to set the memory request equal to the memory limit. That makes the pod guaranteed, and the kube-let will not touch it under normal memory pressure.
+
+One distinction to keep straight, because they sound similar. An out of memory kill is when a single container exceeds its own memory limit, so the kernel kills that process, and you see it in the container's last state with a raised restart count. An eviction is when the whole pod is removed by the kube-let to relieve node level pressure, even if no single container broke its own limit. Different mechanism, different blast radius.
